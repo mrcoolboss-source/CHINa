@@ -9,556 +9,565 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#f4f7fa; font-family:'Inter',system-ui,sans-serif; padding:2rem 1rem; color:#1A2C2C; }
-.container { max-width:1200px; margin:0 auto; background:white; border-radius:32px; padding:2rem; box-shadow:0 20px 40px -12px rgba(0,0,0,0.1); }
+.container { max-width:1000px; margin:0 auto; background:white; border-radius:32px; padding:2rem; box-shadow:0 20px 40px -12px rgba(0,0,0,0.1); }
+
+/* Шапка */
 .header-card { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-bottom:1.5rem; border-bottom:2px solid #eef2f5; margin-bottom:1.8rem; }
-.logo-area { display:flex; align-items:center; gap:12px; }
 .logo-text { font-size:2rem; font-weight:800; color:#1A2C2C; }
 .logo-text span { color:#119C41; }
-.manager-info { font-size:0.85rem; color:#5a6e6e; text-align:right; line-height:1.6; }
+.manager-switch { display:inline-flex; background:#eef2f5; border-radius:40px; padding:4px; margin-bottom:0.5rem; }
+.manager-switch button { background:none; border:none; padding:0.4rem 1.2rem; border-radius:40px; font-weight:600; font-size:0.85rem; cursor:pointer; transition:0.15s; color:#5a6e6e; font-family:inherit; }
+.manager-switch button.active { background:#119C41; color:white; box-shadow:0 2px 8px rgba(17,156,65,0.3); }
+.manager-info { font-size:0.85rem; color:#5a6e6e; text-align:right; line-height:1.6; min-width:220px; }
 .manager-info strong { color:#1A2C2C; font-size:0.95rem; }
 .manager-info a { color:#119C41; text-decoration:none; font-weight:500; }
+
 h1 { font-size:1.8rem; margin-bottom:0.2rem; display:flex; align-items:center; gap:10px; }
 .sub { color:#5a6e6e; margin-bottom:2rem; }
 h2 { font-size:1.15rem; margin:1.5rem 0 0.8rem; display:flex; align-items:center; gap:8px; color:#1A2C2C; }
 h2 i { color:#119C41; }
 
-details.settings { background:#f8fafc; border-radius:16px; padding:0.8rem 1.2rem; margin-bottom:1rem; border:1px solid #e2e8e6; }
-details.settings summary { cursor:pointer; font-weight:600; font-size:0.9rem; color:#5a6e6e; }
-details.settings summary:hover { color:#119C41; }
-.rates-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0.6rem; margin-top:1rem; }
-.rates-grid .rate-item { display:flex; justify-content:space-between; align-items:center; padding:0.3rem 0; font-size:0.8rem; gap:0.5rem; }
-.rates-grid .rate-item span { color:#5a6e6e; }
-.rates-grid .rate-item input { width:80px; padding:0.25rem 0.4rem; border:1.5px solid #F5B342; background:#FFF8E7; border-radius:6px; font-family:inherit; font-size:0.8rem; text-align:right; font-weight:600; }
-
+/* Переключатель режима ввода */
 .mode-switch { display:inline-flex; background:#eef2f5; border-radius:40px; padding:4px; margin-bottom:1rem; }
 .mode-switch button { background:none; border:none; padding:0.5rem 1.5rem; border-radius:40px; font-weight:600; font-size:0.9rem; cursor:pointer; transition:0.15s; color:#5a6e6e; font-family:inherit; }
 .mode-switch button.active { background:#119C41; color:white; box-shadow:0 2px 8px rgba(17,156,65,0.3); }
 
-.places-table { width:100%; border-collapse:separate; border-spacing:0; font-size:0.85rem; margin-bottom:0.5rem; }
-.places-table th { background:#0f2b2b; color:white; font-weight:600; padding:0.6rem 0.5rem; text-align:center; text-transform:uppercase; font-size:0.7rem; border-bottom:2px solid #119C41; }
-.places-table th:first-child { border-top-left-radius:12px; }
-.places-table th:last-child { border-top-right-radius:12px; }
-.places-table td { padding:0.4rem; border-bottom:1px solid #edf2f6; text-align:center; }
-.places-table td input { width:100%; padding:0.4rem; border:1.5px solid #d0d9df; border-radius:8px; font-family:inherit; font-size:0.85rem; text-align:center; }
-.places-table td input:focus { border-color:#119C41; outline:none; box-shadow:0 0 0 2px rgba(17,156,65,0.15); }
-.places-table td.calc { font-weight:600; color:#0E7A35; background:#f8fafc; }
-.places-table tr:nth-child(even) td { background:#fafcfe; }
-.places-table tr:nth-child(even) td.calc { background:#f0f7f2; }
-.remove-place { background:none; border:none; color:#e67e8f; cursor:pointer; font-size:1.1rem; }
-.remove-place:hover { color:#c0392b; }
-.btn-add-place { background:#e8edf0; border:none; padding:0.5rem 1.5rem; border-radius:40px; font-weight:600; cursor:pointer; font-size:0.9rem; margin-bottom:0.5rem; }
-.btn-add-place:hover { background:#d0d9df; }
+/* Карточки */
+.grid-card { background:#f8fafc; border-radius:20px; padding:1.5rem; border:1px solid #e2e8e6; margin-bottom:1.5rem; }
+.grid-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:1rem; }
+.field { display:flex; flex-direction:column; gap:6px; }
+.field label { font-size:0.8rem; font-weight:600; color:#5a6e6e; text-transform:uppercase; letter-spacing:0.5px; }
+.field input, .field select { padding:0.6rem 1rem; border:1.5px solid #d0d9df; border-radius:12px; font-family:inherit; font-size:0.95rem; transition:0.15s; width:100%; }
+.field input:focus, .field select:focus { border-color:#119C41; outline:none; box-shadow:0 0 0 3px rgba(17,156,65,0.15); }
+.field.checkbox-field { flex-direction:row; align-items:center; gap:10px; margin-top:1rem; }
+.field.checkbox-field input[type="checkbox"] { width:20px; height:20px; accent-color:#119C41; cursor:pointer; }
+.field.checkbox-field label { text-transform:none; font-size:0.9rem; cursor:pointer; margin:0; }
 
-.totals { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin:1rem 0; }
-.total-card { background:#f8fafc; border-radius:16px; padding:1rem 1.2rem; border:1px solid #e2e8e6; }
-.total-card .label { font-size:0.75rem; text-transform:uppercase; color:#5a6e6e; font-weight:600; margin-bottom:0.3rem; }
-.total-card .value { font-size:1.3rem; font-weight:800; color:#1A2C2C; }
-.total-card .value small { font-size:0.8rem; color:#5a6e6e; font-weight:500; }
-.total-card.highlight { background:#E8F5ED; border-color:#119C41; }
-.total-card.highlight .value { color:#0E7A35; }
+/* Блок результатов */
+.result-block { background:#E8F5ED; border:2px solid #119C41; border-radius:20px; padding:1.5rem; margin:2rem 0; }
+.result-row { display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px dashed #c8e6d3; font-size:0.95rem; }
+.result-row:last-child { border-bottom:none; }
+.result-row.total { font-size:1.3rem; font-weight:800; color:#0E7A35; padding-top:1rem; border-top:2px solid #119C41; margin-top:0.5rem; }
+.margin-slider { display:flex; align-items:center; gap:1rem; margin-top:1.5rem; }
+.margin-slider input[type="range"] { flex:1; accent-color:#119C41; cursor:pointer; }
+.margin-slider input[type="number"] { width:80px; padding:0.4rem; text-align:center; border:1.5px solid #119C41; border-radius:8px; font-weight:700; color:#0E7A35; }
+.btn-export { background:#119C41; color:white; border:none; padding:1rem 2rem; border-radius:40px; font-weight:700; font-size:1.05rem; cursor:pointer; display:inline-flex; align-items:center; gap:10px; transition:0.15s; width:100%; justify-content:center; margin-top:1rem; }
+.btn-export:hover { background:#0E7A35; transform:scale(1.01); }
 
-.calc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
-.calc-block { background:#f8fafc; border-radius:20px; padding:1.3rem 1.5rem; border:1px solid #e2e8e6; }
-.calc-block h3 { font-size:1rem; margin-bottom:0.8rem; color:#1A2C2C; }
-.calc-row { display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0; font-size:0.85rem; border-bottom:1px dashed #e2e8e6; gap:0.5rem; }
-.calc-row:last-child { border-bottom:none; }
-.calc-row .name { color:#5a6e6e; flex:1; font-size:0.83rem; }
-.calc-row .val { font-weight:600; color:#1A2C2C; text-align:right; min-width:90px; }
-.calc-row.total { padding-top:0.6rem; border-top:2px solid #119C41; margin-top:0.4rem; font-size:0.95rem; }
-.calc-row.total .val { color:#0E7A35; font-size:1.1rem; }
-
-.controls { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; margin:1rem 0; background:#FFF8E7; padding:1rem 1.3rem; border-radius:16px; border:1px solid #F5B342; }
-.controls label { font-weight:600; font-size:0.9rem; color:#1A2C2C; }
-.controls input { padding:0.4rem 0.8rem; border:1.5px solid #d0d9df; border-radius:10px; font-family:inherit; font-size:0.9rem; }
-.controls input:focus { border-color:#F5B342; outline:none; }
-.checkbox-row { display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; }
-.checkbox-row input[type="checkbox"] { width:18px; height:18px; accent-color:#119C41; cursor:pointer; }
-
-.margin-block { background:#E8F5ED; border:2px solid #119C41; border-radius:16px; padding:1rem 1.3rem; margin:1.5rem 0; display:flex; flex-wrap:wrap; gap:1rem; align-items:center; }
-.margin-block label { font-weight:700; font-size:0.95rem; color:#0E7A35; }
-.margin-block input { padding:0.5rem 0.8rem; border:1.5px solid #119C41; border-radius:10px; font-family:inherit; font-size:1rem; font-weight:700; color:#0E7A35; width:100px; text-align:center; }
-.margin-block .margin-result { margin-left:auto; font-size:1.5rem; font-weight:800; color:#0E7A35; }
-
-.btn-export { background:#119C41; color:white; border:none; padding:0.7rem 2rem; border-radius:40px; font-weight:700; font-size:0.95rem; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:0.15s; margin-top:1.5rem; }
-.btn-export:hover { background:#0E7A35; transform:scale(1.02); }
-
-@media (max-width:900px) {
-  .container { padding:1.2rem; }
-  .places-table { font-size:0.75rem; }
-  .places-table th { padding:0.4rem 0.2rem; font-size:0.6rem; }
-  .calc-grid { grid-template-columns:1fr; }
-  .margin-block { flex-direction:column; align-items:stretch; }
-  .margin-block .margin-result { margin-left:0; text-align:center; }
+@media (max-width:700px) {
+  .header-card { flex-direction:column; align-items:flex-start; text-align:left; }
+  .manager-info { text-align:left; }
+  .grid-row { grid-template-columns:1fr 1fr; }
 }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header-card">
-    <div class="logo-area">
+    <div>
       <div class="logo-text">СДЭК<span>.</span></div>
       <span style="font-weight:500;color:#5a6e6e;font-size:0.9rem;">Калькулятор Авто Шанхай — Владивосток</span>
     </div>
-    <div class="manager-info">
-      <strong>Полтэф Герман</strong><br>
-      Коммерческий представитель СДЭК<br>
-      <a href="tel:+79311056677">+7 (931) 105-66-77</a> · <a href="mailto:g.poltef@cdek.ru">g.poltef@cdek.ru</a>
+    
+    <div>
+      <div class="manager-switch">
+        <button id="btnManagerGerman" class="active" onclick="switchManager('german')">Герман</button>
+        <button id="btnManagerEkaterina" onclick="switchManager('ekaterina')">Екатерина</button>
+      </div>
+      <div class="manager-info" id="managerInfoDisplay"></div>
     </div>
   </div>
 
-  <h1><i class="fas fa-calculator" style="color:#119C41;"></i> Калькулятор отправления</h1>
-  <div class="sub">Введите данные груза — все ставки применятся автоматически, как в Excel</div>
+  <h1><i class="fas fa-calculator" style="color:#119C41;"></i> Расчёт КП</h1>
+  <div class="sub">Введите данные груза и логистики для формирования предложения</div>
 
-  <!-- Настройки ставок -->
-  <details class="settings">
-    <summary><i class="fas fa-sliders-h"></i> Настройки ставок (₽/кг и фиксированные)</summary>
-    <div class="rates-grid">
-      <div class="rate-item"><span>Шанхай — Мишань, ₽/кг</span><input type="number" id="rShanghaiMishan" value="19.68" step="0.01"></div>
-      <div class="rate-item"><span>Мишань — Владивосток, ₽/кг</span><input type="number" id="rMishanVlad" value="26.84" step="0.01"></div>
-      <div class="rate-item"><span>Терминал. граница, ₽/кг</span><input type="number" id="rTerminalBorder" value="2.10" step="0.01"></div>
-      <div class="rate-item"><span>Склад. Владивосток, ₽/кг</span><input type="number" id="rWarehouseVlad" value="1.70" step="0.01"></div>
-      <div class="rate-item"><span>Терминал. СВХ, ₽/кг</span><input type="number" id="rTerminalSVH" value="12.20" step="0.01"></div>
-      <div class="rate-item"><span>Склад. КНР (фикс), ₽</span><input type="number" id="rWarehouseCN" value="312" step="1"></div>
-      <div class="rate-item"><span>Экспорт. ТО, ₽</span><input type="number" id="rExportCN" value="0" step="1"></div>
-      <div class="rate-item"><span>LCL СВХ→СЦ, ₽</span><input type="number" id="rLcl" value="1022.79" step="1"></div>
-      <div class="rate-item"><span>Забор, CNY</span><input type="number" id="rPickupCNY" value="241" step="1"></div>
+  <!-- 1. Груз -->
+  <h2><i class="fas fa-box"></i> 1. Параметры груза</h2>
+  <div class="grid-card">
+    <!-- Переключатель режима -->
+    <div class="mode-switch">
+      <button id="modeDimensions" class="active" onclick="setMode('dimensions')">По габаритам (Д×Ш×В)</button>
+      <button id="modeVolume" onclick="setMode('volume')">По объёму (м³)</button>
     </div>
-  </details>
 
-  <!-- Параметры -->
-  <div class="controls">
-    <label><i class="fas fa-yen-sign"></i> Курс юаня:</label>
-    <input type="number" id="cnyRate" value="12" step="0.01" style="width:90px;">
-    <div class="checkbox-row" style="margin-left:1rem;">
+    <!-- Поля для режима "Габариты" -->
+    <div id="fieldsDimensions">
+      <div class="grid-row">
+        <div class="field"><label>Количество мест</label><input type="number" id="qty" value="9" min="1"></div>
+        <div class="field"><label>Длина, см</label><input type="number" id="length" value="61" step="0.1"></div>
+        <div class="field"><label>Ширина, см</label><input type="number" id="width" value="46" step="0.1"></div>
+        <div class="field"><label>Высота, см</label><input type="number" id="height" value="45" step="0.1"></div>
+        <div class="field"><label>Вес 1 места, кг</label><input type="number" id="weight" value="21" step="0.1"></div>
+      </div>
+    </div>
+
+    <!-- Поля для режима "Объём" -->
+    <div id="fieldsVolume" style="display:none;">
+      <div class="grid-row">
+        <div class="field"><label>Общий объём, м³</label><input type="number" id="totalVolumeInput" value="1.136" step="0.001"></div>
+        <div class="field"><label>Общий вес, кг</label><input type="number" id="totalWeightInput" value="189" step="0.1"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem; font-size:0.9rem; color:#5a6e6e;">
+      <strong>Объём:</strong> <span id="outVolume">—</span> м³ | 
+      <strong>Факт. вес:</strong> <span id="outWeight">—</span> кг | 
+      <strong>Объёмный вес:</strong> <span id="outVolWeight">—</span> кг | 
+      <strong>Расчётный вес (макс):</strong> <span id="outCalcWeight" style="color:#0E7A35; font-weight:800;">—</span> кг
+    </div>
+  </div>
+
+  <!-- 2. Логистика -->
+  <h2><i class="fas fa-truck"></i> 2. Маршрут и услуги</h2>
+  <div class="grid-card">
+    <div class="grid-row">
+      <div class="field">
+        <label>Провинция забора (КНР)</label>
+        <select id="pickupProvince">
+          <option value="上海">Шанхай</option>
+          <option value="北京">Пекин</option>
+          <option value="天津">Тяньцзинь</option>
+          <option value="河北">Хэбэй</option>
+          <option value="山西">Шаньси</option>
+          <option value="内蒙古">Внутренняя Монголия</option>
+          <option value="辽宁">Ляонин</option>
+          <option value="吉林">Цзилинь</option>
+          <option value="黑龙江">Хэйлунцзян</option>
+          <option value="江苏">Цзянсу</option>
+          <option value="浙江">Чжэцзян</option>
+          <option value="安徽">Аньхой</option>
+          <option value="福建">Фуцзянь</option>
+          <option value="江西">Цзянси</option>
+          <option value="山东">Шаньдун</option>
+          <option value="河南">Хэнань</option>
+          <option value="湖北">Хубэй</option>
+          <option value="广东">Гуандун</option>
+          <option value="广西">Гуанси</option>
+          <option value="海南">Хайнань</option>
+          <option value="重庆">Чунцин</option>
+          <option value="四川">Сычуань</option>
+          <option value="贵州">Гуйчжоу</option>
+          <option value="云南">Юньнань</option>
+          <option value="陕西">Шэньси</option>
+          <option value="甘肃">Ганьсу</option>
+          <option value="青海">Цинхай</option>
+          <option value="新疆">Синьцзян</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Курс юаня (₽)</label>
+        <input type="number" id="cnyRate" value="12" step="0.01">
+      </div>
+      <div class="field">
+        <label>Город доставки по РФ (куда)</label>
+        <input type="text" id="rfCity" placeholder="Например, Москва">
+      </div>
+      <div class="field">
+        <label>Стоимость до РФ (₽)</label>
+        <input type="number" id="rfDelivery" value="0" step="100">
+      </div>
+    </div>
+    
+    <div class="field checkbox-field">
       <input type="checkbox" id="lclToggle">
-      <label for="lclToggle">Сборный груз (СВХ → СЦ Владивосток)</label>
+      <label for="lclToggle">Сборный груз (СВХ → СЦ Владивосток) — 1 022.79 ₽</label>
     </div>
   </div>
 
-  <!-- Переключатель режима -->
-  <h2><i class="fas fa-box"></i> Грузовые места</h2>
-  <div class="mode-switch">
-    <button id="modeDimensions" class="active">По габаритам (Д×Ш×В)</button>
-    <button id="modeVolume">По объёму (м³)</button>
+  <!-- 3. Таможня -->
+  <h2><i class="fas fa-file-signature"></i> 3. Таможенное оформление</h2>
+  <div class="grid-card">
+    <div class="grid-row">
+      <div class="field">
+        <label>Экспортное ТО (КНР), ₽</label>
+        <input type="number" id="exportTO" value="0" step="100">
+      </div>
+      <div class="field">
+        <label>Импортное ТО (РФ), ₽</label>
+        <input type="number" id="importTO" value="0" step="100">
+      </div>
+    </div>
+    <div style="font-size:0.8rem; color:#5a6e6e; margin-top:0.5rem;">* Если клиент делает ТО сам — оставьте 0.</div>
   </div>
 
-  <!-- Таблица: габариты -->
-  <table class="places-table" id="placesTableDimensions">
-    <thead>
-      <tr>
-        <th>Кол-во</th><th>Длина, см</th><th>Ширина, см</th><th>Высота, см</th><th>Вес 1 места, кг</th>
-        <th>Объём 1 м³</th><th>Общий объём, м³</th><th>Общий вес, кг</th>
-        <th>Плотность</th><th>Объёмный вес</th><th>Расчётный вес</th><th></th>
-      </tr>
-    </thead>
-    <tbody id="placesBodyDimensions"></tbody>
-  </table>
-
-  <!-- Таблица: объём -->
-  <table class="places-table" id="placesTableVolume" style="display:none;">
-    <thead>
-      <tr>
-        <th>Кол-во мест</th><th>Общий объём, м³</th><th>Общий вес, кг</th>
-        <th>Плотность</th><th>Объёмный вес</th><th>Расчётный вес</th><th></th>
-      </tr>
-    </thead>
-    <tbody id="placesBodyVolume"></tbody>
-  </table>
-
-  <button class="btn-add-place" id="addPlaceBtn"><i class="fas fa-plus"></i> Добавить место</button>
-
-  <!-- Итоги -->
-  <div class="totals">
-    <div class="total-card"><div class="label">Общий объём</div><div class="value" id="totalVolume">0.000 <small>м³</small></div></div>
-    <div class="total-card"><div class="label">Общий вес</div><div class="value" id="totalWeight">0 <small>кг</small></div></div>
-    <div class="total-card"><div class="label">Расчётный вес</div><div class="value" id="totalCalcWeight">0 <small>кг</small></div></div>
-    <div class="total-card highlight"><div class="label">Рекомендуемый тариф</div><div class="value" id="recommendedTariff">—</div></div>
+  <!-- Результаты -->
+  <h2><i class="fas fa-chart-line"></i> 4. Финансовый результат</h2>
+  <div class="result-block">
+    <div class="result-row"><span>Себестоимость (закупка)</span><span id="outCost">0 ₽</span></div>
+    <div class="margin-slider">
+      <label style="font-weight:700; color:#0E7A35; white-space:nowrap;">Маржа СДЭК:</label>
+      <input type="range" id="marginRange" min="0" max="100" value="20" step="1">
+      <input type="number" id="marginPercent" value="20" min="0" max="100">
+      <span style="font-weight:700; color:#0E7A35;">%</span>
+    </div>
+    <div class="result-row total"><span>Цена для клиента</span><span id="outClientPrice">0 ₽</span></div>
+    <div class="result-row" style="font-size:0.85rem; color:#5a6e6e;"><span>Прибыль менеджера</span><span id="outProfit">0 ₽</span></div>
   </div>
 
-  <!-- Расчёт себестоимости -->
-  <h2><i class="fas fa-ruble-sign"></i> Расчёт себестоимости (внутренний)</h2>
-
-  <div class="calc-grid">
-    <div class="calc-block">
-      <h3>Стоимость перевозки (закупка)</h3>
-      <div class="calc-row"><span class="name">Расчётный вес, кг</span><span class="val" id="calcWeightShow">0</span></div>
-      <div class="calc-row"><span class="name">Ставка по весу, ₽/кг</span><span class="val">22.00</span></div>
-      <div class="calc-row"><span class="name">Цена по весу (расч. × 22)</span><span class="val" id="priceByWeight">0 ₽</span></div>
-      <div class="calc-row"><span class="name">Ставка по объёму, ₽/м³</span><span class="val">6 419.00</span></div>
-      <div class="calc-row"><span class="name">Цена по объёму (объём × 6 419)</span><span class="val" id="priceByVolume">0 ₽</span></div>
-      <div class="calc-row total"><span class="name">Рекомендуемый расчёт</span><span class="val" id="recommendedPrice">0 ₽</span></div>
-    </div>
-
-    <div class="calc-block">
-      <h3>Забор груза у отправителя</h3>
-      <div class="calc-row"><span class="name">В юанях</span><span class="val" id="pickupCNY">0 ¥</span></div>
-      <div class="calc-row"><span class="name">Курс юаня</span><span class="val" id="cnyRateShow">12</span></div>
-      <div class="calc-row total"><span class="name">Забор в рублях</span><span class="val" id="pickupRUB">0 ₽</span></div>
-    </div>
-  </div>
-
-  <div class="calc-grid" style="margin-top:1.5rem;">
-    <div class="calc-block">
-      <h3>От отправителя до границы</h3>
-      <div class="calc-row"><span class="name">Перевозка Шанхай — ТП Мишань (19.68 ₽/кг × расч.)</span><span class="val" id="shanghaiMishan">0 ₽</span></div>
-      <div class="calc-row"><span class="name">Складская обработка в КНР (фикс)</span><span class="val" id="warehouseCN">312 ₽</span></div>
-      <div class="calc-row"><span class="name">Терминальная обработка на границе (2.1 ₽/кг × расч.)</span><span class="val" id="terminalBorder">0 ₽</span></div>
-      <div class="calc-row"><span class="name">Экспортное ТО в Китае</span><span class="val" id="exportCN">0 ₽</span></div>
-      <div class="calc-row total"><span class="name">Итого до границы</span><span class="val" id="totalToBorder">0 ₽</span></div>
-    </div>
-
-    <div class="calc-block">
-      <h3>От границы до СВХ Владивосток</h3>
-      <div class="calc-row"><span class="name">Перевозка ТП Мишань — Владивосток (26.84 ₽/кг × расч.)</span><span class="val" id="mishanVlad">0 ₽</span></div>
-      <div class="calc-row"><span class="name">Складская обработка Владивосток (1.7 ₽/кг × расч.)</span><span class="val" id="warehouseVlad">0 ₽</span></div>
-      <div class="calc-row"><span class="name">Терминальная обработка СВХ (12.2 ₽/кг × факт.)</span><span class="val" id="terminalSVH">0 ₽</span></div>
-      <div class="calc-row total"><span class="name">Итого от границы до СВХ</span><span class="val" id="totalFromBorder">0 ₽</span></div>
-    </div>
-
-    <div class="calc-block" style="background:#E8F5ED; border-color:#119C41;">
-      <h3 style="color:#0E7A35;">Себестоимость (без маржи)</h3>
-      <div class="calc-row"><span class="name">От отправителя до СВХ Таможенный Портал</span><span class="val" id="grandTotal" style="font-size:1.15rem;color:#0E7A35;">0 ₽</span></div>
-      <div class="calc-row" id="lclRow" style="display:none;"><span class="name">СВХ → СЦ Владивосток</span><span class="val" id="lclCost">0 ₽</span></div>
-      <div class="calc-row" style="font-size:0.72rem;color:#5a6e6e;padding-top:0.5rem;">*Внутренняя себестоимость. Клиент видит только цену с маржой.</div>
-    </div>
-  </div>
-
-  <div class="margin-block">
-    <label><i class="fas fa-percent"></i> Маржа СДЭК:</label>
-    <input type="number" id="marginPercent" value="20" step="1" min="0">
-    <span style="font-weight:600;color:#0E7A35;">%</span>
-    <div class="margin-result">Цена для клиента: <span id="clientPrice">0 ₽</span></div>
-  </div>
-
-  <button class="btn-export" id="exportBtn"><i class="fas fa-file-pdf"></i> Экспорт КП для клиента</button>
+  <button class="btn-export" id="exportBtn"><i class="fas fa-file-pdf"></i> Скачать КП для клиента (PDF)</button>
 </div>
 
 <script>
-// ==================== СОСТОЯНИЕ ====================
-const appState = {
-  mode: 'dimensions',
-  placesDim: [{ qty:9, length:61, width:46, height:45, weight:21 }],
-  placesVol: [{ qty:1, volume:0, weight:0 }],
-  cnyRate: 12,
-  lcl: false,
-  margin: 20,
-  rates: {
-    shanghaiMishan: 19.68,
-    mishanVlad: 26.84,
-    terminalBorder: 2.10,
-    warehouseVlad: 1.70,
-    terminalSVH: 12.20,
-    warehouseCN: 312,
-    exportCN: 0,
-    lcl: 1022.79,
-    pickupCNY: 241
+// ==================== БАЗА МЕНЕДЖЕРОВ ====================
+const managers = {
+  german: {
+    name: 'Полтэф Герман',
+    title: 'Коммерческий представитель СДЭК',
+    phones: '+7 (931) 105-66-77',
+    email: 'g.poltef@cdek.ru'
   },
-  calc: null
+  ekaterina: {
+    name: 'Неслухова Екатерина',
+    title: 'Коммерческий представитель СДЭК',
+    phones: '+7 (966) 666-90-04',
+    email: 'e.protasova@cdek.ru'
+  }
 };
+let currentManager = 'german';
 
+function switchManager(mgr) {
+  currentManager = mgr;
+  document.getElementById('btnManagerGerman').classList.toggle('active', mgr === 'german');
+  document.getElementById('btnManagerEkaterina').classList.toggle('active', mgr === 'ekaterina');
+  const m = managers[mgr];
+  document.getElementById('managerInfoDisplay').innerHTML = `
+    <strong>${m.name}</strong><br>
+    ${m.title}<br>
+    <a href="tel:${m.phones.replace(/[^0-9+]/g, '')}">${m.phones}</a> · <a href="mailto:${m.email}">${m.email}</a>
+  `;
+}
+switchManager('german');
+
+// ==================== РЕЖИМ ВВОДА ====================
+let inputMode = 'dimensions'; // 'dimensions' | 'volume'
+
+function setMode(mode) {
+  inputMode = mode;
+  document.getElementById('modeDimensions').classList.toggle('active', mode === 'dimensions');
+  document.getElementById('modeVolume').classList.toggle('active', mode === 'volume');
+  
+  document.getElementById('fieldsDimensions').style.display = mode === 'dimensions' ? 'block' : 'none';
+  document.getElementById('fieldsVolume').style.display = mode === 'volume' ? 'block' : 'none';
+  
+  calculate();
+}
+
+// ==================== ТАБЛИЦА ЗАБОРА ====================
+const pickupData = {
+  '北京': [135, 135, 255, 255, 345, 455, 495, 975],
+  '天津': [135, 135, 255, 255, 345, 455, 495, 975],
+  '河北': [125, 125, 235, 235, 305, 405, 450, 880],
+  '山西': [135, 135, 250, 250, 340, 450, 545, 1075],
+  '内蒙古': [160, 160, 280, 280, 370, 480, 540, 1045],
+  '辽宁': [160, 160, 280, 280, 370, 480, 540, 1045],
+  '吉林': [130, 130, 245, 245, 335, 445, 530, 1045],
+  '黑龙江': [155, 155, 295, 295, 385, 505, 585, 1160],
+  '上海': [75, 75, 130, 130, 185, 235, 295, 565],
+  '江苏': [90, 90, 160, 160, 225, 300, 360, 705],
+  '浙江': [91, 91, 165, 165, 236, 310, 375, 730],
+  '安徽': [91, 91, 165, 165, 235, 307, 373, 728],
+  '福建': [123, 123, 227, 227, 299, 394, 400, 785],
+  '江西': [112, 112, 207, 207, 283, 370, 442, 867],
+  '山东': [110, 110, 200, 200, 258, 339, 390, 766],
+  '河南': [118, 118, 218, 218, 290, 380, 415, 815],
+  '湖北': [115, 115, 213, 213, 276, 362, 385, 755],
+  '广东': [130, 130, 241, 241, 334, 440, 498, 983],
+  '广西': [129, 129, 241, 241, 330, 435, 513, 1013],
+  '海南': [171, 171, 306, 306, 387, 505, 584, 1134],
+  '重庆': [129, 129, 241, 241, 321, 423, 470, 925],
+  '四川': [140, 140, 264, 264, 352, 463, 535.5, 1055],
+  '贵州': [120, 120, 223, 223, 305, 400, 478, 930],
+  '云南': [131, 131, 245, 245, 342, 451, 532, 1052],
+  '陕西': [126, 126, 235, 235, 313, 413, 495, 975],
+  '甘肃': [168, 168, 299, 299, 388, 506, 602, 1166],
+  '青海': [160, 160, 282, 282, 372, 485, 579, 118],
+  '新疆': [234, 234, 435, 435, 572, 752, 910, 1785]
+};
+const weightBrackets = [35, 50, 100, 200, 300, 400, 500, 1000];
+
+function getPickupRate(province, weight) {
+  if (!pickupData[province]) return 0;
+  const rates = pickupData[province];
+  let idx = 0;
+  for (let i = 0; i < weightBrackets.length; i++) {
+    if (weight <= weightBrackets[i]) { idx = i; break; }
+    if (i === weightBrackets.length - 1) idx = i;
+  }
+  return rates[idx];
+}
+
+// ==================== КОНСТАНТЫ И СТАВКИ ====================
 const RATE_PER_KG = 22;
 const RATE_PER_M3 = 6419;
+const RATES = {
+  shanghaiMishan: 19.68,
+  mishanVlad: 26.84,
+  terminalBorder: 2.10,
+  warehouseVlad: 1.70,
+  terminalSVH: 12.20,
+  warehouseCN: 312,
+  lcl: 1022.787
+};
 
-// ==================== DOM ====================
-const tbodyDim = document.getElementById('placesBodyDimensions');
-const tbodyVol = document.getElementById('placesBodyVolume');
-const tableDim = document.getElementById('placesTableDimensions');
-const tableVol = document.getElementById('placesTableVolume');
-
-// ==================== РЕНДЕР ====================
-function renderPlacesDim() {
-  tbodyDim.innerHTML = '';
-  appState.placesDim.forEach((p, i) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="number" value="${p.qty}" data-i="${i}" data-f="qty" min="1"></td>
-      <td><input type="number" value="${p.length}" data-i="${i}" data-f="length" step="0.1"></td>
-      <td><input type="number" value="${p.width}" data-i="${i}" data-f="width" step="0.1"></td>
-      <td><input type="number" value="${p.height}" data-i="${i}" data-f="height" step="0.1"></td>
-      <td><input type="number" value="${p.weight}" data-i="${i}" data-f="weight" step="0.1"></td>
-      <td class="calc" data-calc="volumeOne">—</td>
-      <td class="calc" data-calc="volumeTotal">—</td>
-      <td class="calc" data-calc="weightTotal">—</td>
-      <td class="calc" data-calc="density">—</td>
-      <td class="calc" data-calc="volWeight">—</td>
-      <td class="calc" data-calc="calcWeight">—</td>
-      <td><button class="remove-place" data-i="${i}"><i class="fas fa-times-circle"></i></button></td>
-    `;
-    tbodyDim.appendChild(tr);
-  });
-  tbodyDim.querySelectorAll('input').forEach(inp => {
-    inp.addEventListener('input', function() {
-      const i = parseInt(this.dataset.i), f = this.dataset.f;
-      appState.placesDim[i][f] = parseFloat(this.value) || 0;
-      calculate();
-    });
-  });
-  tbodyDim.querySelectorAll('.remove-place').forEach(btn => {
-    btn.addEventListener('click', function() {
-      appState.placesDim.splice(parseInt(this.dataset.i), 1);
-      renderPlacesDim(); calculate();
-    });
-  });
-}
-
-function renderPlacesVol() {
-  tbodyVol.innerHTML = '';
-  appState.placesVol.forEach((p, i) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="number" value="${p.qty}" data-i="${i}" data-f="qty" min="1"></td>
-      <td><input type="number" value="${p.volume}" data-i="${i}" data-f="volume" step="0.001"></td>
-      <td><input type="number" value="${p.weight}" data-i="${i}" data-f="weight" step="0.1"></td>
-      <td class="calc" data-calc="density">—</td>
-      <td class="calc" data-calc="volWeight">—</td>
-      <td class="calc" data-calc="calcWeight">—</td>
-      <td><button class="remove-place" data-i="${i}"><i class="fas fa-times-circle"></i></button></td>
-    `;
-    tbodyVol.appendChild(tr);
-  });
-  tbodyVol.querySelectorAll('input').forEach(inp => {
-    inp.addEventListener('input', function() {
-      const i = parseInt(this.dataset.i), f = this.dataset.f;
-      appState.placesVol[i][f] = parseFloat(this.value) || 0;
-      calculate();
-    });
-  });
-  tbodyVol.querySelectorAll('.remove-place').forEach(btn => {
-    btn.addEventListener('click', function() {
-      appState.placesVol.splice(parseInt(this.dataset.i), 1);
-      renderPlacesVol(); calculate();
-    });
-  });
-}
-
-// ==================== ПЕРЕКЛЮЧАТЕЛЬ ====================
-document.getElementById('modeDimensions').addEventListener('click', function() {
-  appState.mode = 'dimensions';
-  this.classList.add('active');
-  document.getElementById('modeVolume').classList.remove('active');
-  tableDim.style.display = ''; tableVol.style.display = 'none';
-  renderPlacesDim(); calculate();
-});
-document.getElementById('modeVolume').addEventListener('click', function() {
-  appState.mode = 'volume';
-  this.classList.add('active');
-  document.getElementById('modeDimensions').classList.remove('active');
-  tableDim.style.display = 'none'; tableVol.style.display = '';
-  renderPlacesVol(); calculate();
-});
-
-// ==================== РАСЧЁТ ====================
+// ==================== СБОР ДАННЫХ И РАСЧЕТ ====================
 function calculate() {
-  let totalVolume = 0, totalWeight = 0, totalCalcWeight = 0;
+  let vTotal = 0, wTotal = 0, qty = 0;
 
-  if (appState.mode === 'dimensions') {
-    const rows = tbodyDim.querySelectorAll('tr');
-    appState.placesDim.forEach((p, i) => {
-      const vOne = (p.length * p.width * p.height) / 1_000_000;
-      const vTotal = vOne * p.qty;
-      const wTotal = p.weight * p.qty;
-      const density = vTotal > 0 ? wTotal / vTotal : 0;
-      const volWeight = vTotal * 200;
-      const calcWeight = Math.max(wTotal, volWeight);
-      totalVolume += vTotal;
-      totalWeight += wTotal;
-      totalCalcWeight += calcWeight;
-      const tr = rows[i]; if (!tr) return;
-      tr.querySelector('[data-calc="volumeOne"]').textContent = vOne.toFixed(5);
-      tr.querySelector('[data-calc="volumeTotal"]').textContent = vTotal.toFixed(5);
-      tr.querySelector('[data-calc="weightTotal"]').textContent = wTotal.toFixed(1);
-      tr.querySelector('[data-calc="density"]').textContent = density.toFixed(1);
-      tr.querySelector('[data-calc="volWeight"]').textContent = volWeight.toFixed(1);
-      tr.querySelector('[data-calc="calcWeight"]').textContent = calcWeight.toFixed(1);
-    });
+  if (inputMode === 'dimensions') {
+    qty = parseFloat(document.getElementById('qty').value) || 0;
+    const length = parseFloat(document.getElementById('length').value) || 0;
+    const width = parseFloat(document.getElementById('width').value) || 0;
+    const height = parseFloat(document.getElementById('height').value) || 0;
+    const weight = parseFloat(document.getElementById('weight').value) || 0;
+
+    const vOne = (length * width * height) / 1_000_000;
+    vTotal = vOne * qty;
+    wTotal = weight * qty;
   } else {
-    const rows = tbodyVol.querySelectorAll('tr');
-    appState.placesVol.forEach((p, i) => {
-      const volume = p.volume, weight = p.weight;
-      const density = volume > 0 ? weight / volume : 0;
-      const volWeight = volume * 200;
-      const calcWeight = Math.max(weight, volWeight);
-      totalVolume += volume;
-      totalWeight += weight;
-      totalCalcWeight += calcWeight;
-      const tr = rows[i]; if (!tr) return;
-      tr.querySelector('[data-calc="density"]').textContent = density.toFixed(1);
-      tr.querySelector('[data-calc="volWeight"]').textContent = volWeight.toFixed(1);
-      tr.querySelector('[data-calc="calcWeight"]').textContent = calcWeight.toFixed(1);
-    });
+    vTotal = parseFloat(document.getElementById('totalVolumeInput').value) || 0;
+    wTotal = parseFloat(document.getElementById('totalWeightInput').value) || 0;
   }
 
-  document.getElementById('totalVolume').innerHTML = totalVolume.toFixed(3) + ' <small>м³</small>';
-  document.getElementById('totalWeight').innerHTML = totalWeight.toFixed(1) + ' <small>кг</small>';
-  document.getElementById('totalCalcWeight').innerHTML = totalCalcWeight.toFixed(1) + ' <small>кг</small>';
+  const volWeight = vTotal * 200; // Объёмный вес (200 кг/м³)
+  const calcWeight = Math.max(wTotal, volWeight); // БЕРЕМ МАКСИМУМ!
 
-  // Стоимость перевозки — берём БОЛЬШУЮ из двух
-  const priceByWeight = totalCalcWeight * RATE_PER_KG;
-  const priceByVolume = totalVolume * RATE_PER_M3;
-  let recommendedPrice, recommendedText;
-  if (priceByWeight >= priceByVolume) {
-    recommendedPrice = priceByWeight; recommendedText = 'По весу (22 ₽/кг)';
-  } else {
-    recommendedPrice = priceByVolume; recommendedText = 'По объёму (6 419 ₽/м³)';
-  }
-  document.getElementById('calcWeightShow').textContent = totalCalcWeight.toFixed(1) + ' кг';
-  document.getElementById('priceByWeight').textContent = priceByWeight.toFixed(2) + ' ₽';
-  document.getElementById('priceByVolume').textContent = priceByVolume.toFixed(2) + ' ₽';
-  document.getElementById('recommendedPrice').textContent = recommendedPrice.toFixed(2) + ' ₽';
-  document.getElementById('recommendedTariff').textContent = recommendedText;
+  document.getElementById('outVolume').textContent = vTotal.toFixed(3);
+  document.getElementById('outWeight').textContent = wTotal.toFixed(1);
+  document.getElementById('outVolWeight').textContent = volWeight.toFixed(1);
+  document.getElementById('outCalcWeight').textContent = calcWeight.toFixed(1);
 
-  // Забор груза
-  const pickupRUB = appState.rates.pickupCNY * appState.cnyRate;
-  document.getElementById('pickupCNY').textContent = appState.rates.pickupCNY + ' ¥';
-  document.getElementById('cnyRateShow').textContent = appState.cnyRate;
-  document.getElementById('pickupRUB').textContent = pickupRUB.toFixed(2) + ' ₽';
+  // 2. Логистика и Таможня
+  const province = document.getElementById('pickupProvince').value;
+  const cnyRate = parseFloat(document.getElementById('cnyRate').value) || 12;
+  const rfCity = document.getElementById('rfCity').value.trim();
+  const rfDelivery = parseFloat(document.getElementById('rfDelivery').value) || 0;
+  const lclOn = document.getElementById('lclToggle').checked;
+  const exportTO = parseFloat(document.getElementById('exportTO').value) || 0;
+  const importTO = parseFloat(document.getElementById('importTO').value) || 0;
+  const margin = parseFloat(document.getElementById('marginPercent').value) || 0;
 
-  // Формулы ставок (как в Excel)
-  const shanghaiMishan = appState.rates.shanghaiMishan * totalCalcWeight;
-  const warehouseCN = appState.rates.warehouseCN;
-  const terminalBorder = appState.rates.terminalBorder * totalCalcWeight;
-  const exportCN = appState.rates.exportCN;
-  const mishanVlad = appState.rates.mishanVlad * totalCalcWeight;
-  const warehouseVlad = appState.rates.warehouseVlad * totalCalcWeight;
-  // ВАЖНО: терминальная СВХ считается от ОБЩЕГО (фактического) веса, как в Excel
-  const terminalSVH = appState.rates.terminalSVH * totalWeight;
+  // 3. Расчет статей (ЗАКУПКА)
+  const pickupCNY = getPickupRate(province, calcWeight);
+  const pickupRUB = pickupCNY * cnyRate;
 
-  document.getElementById('shanghaiMishan').textContent = shanghaiMishan.toFixed(2) + ' ₽';
-  document.getElementById('warehouseCN').textContent = warehouseCN.toFixed(2) + ' ₽';
-  document.getElementById('terminalBorder').textContent = terminalBorder.toFixed(2) + ' ₽';
-  document.getElementById('exportCN').textContent = exportCN.toFixed(2) + ' ₽';
-  document.getElementById('mishanVlad').textContent = mishanVlad.toFixed(2) + ' ₽';
-  document.getElementById('warehouseVlad').textContent = warehouseVlad.toFixed(2) + ' ₽';
-  document.getElementById('terminalSVH').textContent = terminalSVH.toFixed(2) + ' ₽';
+  const shanghaiMishan = RATES.shanghaiMishan * calcWeight;
+  const mishanVlad = RATES.mishanVlad * calcWeight;
+  const warehouseCN = RATES.warehouseCN;
+  const terminalBorder = RATES.terminalBorder * calcWeight;
+  const warehouseVlad = RATES.warehouseVlad * calcWeight;
+  const terminalSVH = RATES.terminalSVH * wTotal; // От фактического веса!
+  const lclCost = lclOn ? RATES.lcl : 0;
 
-  // Итого по группам
-  const totalToBorder = pickupRUB + shanghaiMishan + warehouseCN + terminalBorder + exportCN;
-  const totalFromBorder = mishanVlad + warehouseVlad + terminalSVH;
-  document.getElementById('totalToBorder').textContent = totalToBorder.toFixed(2) + ' ₽';
-  document.getElementById('totalFromBorder').textContent = totalFromBorder.toFixed(2) + ' ₽';
+  // Себестоимость (закупка)
+  const costTransport = pickupRUB + shanghaiMishan + mishanVlad + rfDelivery;
+  const costHandling = warehouseCN + terminalBorder + warehouseVlad + terminalSVH + lclCost;
+  const costCustoms = exportTO + importTO;
+  const totalCost = costTransport + costHandling + costCustoms;
 
-  // LCL
-  const lclExtra = appState.lcl ? appState.rates.lcl : 0;
-  document.getElementById('lclRow').style.display = appState.lcl ? 'flex' : 'none';
-  document.getElementById('lclCost').textContent = appState.rates.lcl.toFixed(2) + ' ₽';
+  // Наценка (Цена для клиента)
+  const multiplier = 1 + (margin / 100);
+  const clientTransport = costTransport * multiplier;
+  const clientHandling = costHandling * multiplier;
+  const clientCustoms = costCustoms * multiplier;
+  const clientTotal = totalCost * multiplier;
 
-  // Себестоимость
-  const grandTotal = totalToBorder + totalFromBorder + lclExtra;
-  document.getElementById('grandTotal').textContent = grandTotal.toFixed(2) + ' ₽';
+  document.getElementById('outCost').textContent = totalCost.toFixed(2) + ' ₽';
+  document.getElementById('outClientPrice').textContent = clientTotal.toFixed(2) + ' ₽';
+  document.getElementById('outProfit').textContent = (clientTotal - totalCost).toFixed(2) + ' ₽';
 
-  // Маржа
-  const marginAmount = grandTotal * (appState.margin / 100);
-  const clientPrice = grandTotal + marginAmount;
-  document.getElementById('clientPrice').textContent = clientPrice.toFixed(2) + ' ₽';
-
-  appState.calc = {
-    totalVolume, totalWeight, totalCalcWeight,
-    priceByWeight, priceByVolume, recommendedPrice, recommendedText,
-    pickupRUB, shanghaiMishan, warehouseCN, terminalBorder, exportCN,
-    mishanVlad, warehouseVlad, terminalSVH,
-    totalToBorder, totalFromBorder, grandTotal,
-    margin: appState.margin, marginAmount, clientPrice
+  return {
+    qty, vTotal, wTotal, volWeight, calcWeight,
+    province, cnyRate, rfCity, rfDelivery, lclOn, exportTO, importTO,
+    pickupCNY, pickupRUB, shanghaiMishan, mishanVlad, warehouseCN, terminalBorder, warehouseVlad, terminalSVH, lclCost,
+    costTransport, costHandling, costCustoms, totalCost,
+    margin, multiplier, clientTransport, clientHandling, clientCustoms, clientTotal,
+    mode: inputMode
   };
 }
 
-// ==================== PDF ====================
+// ==================== ГЕНЕРАЦИЯ PDF (КРАСИВОЕ КП) ====================
 function exportPDF() {
-  const c = appState.calc;
-  if (!c) { alert('Сначала добавьте грузовые места.'); return; }
+  const d = calculate();
+  const m = managers[currentManager];
   const dateStr = new Date().toLocaleDateString('ru-RU', { day:'numeric', month:'long', year:'numeric' });
 
-  let placesRows = '';
-  if (appState.mode === 'dimensions') {
-    appState.placesDim.forEach((p, i) => {
-      const vTotal = (p.length * p.width * p.height * p.qty) / 1_000_000;
-      const wTotal = p.weight * p.qty;
-      placesRows += `<tr>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:center;">${i+1}</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:center;">${p.qty}</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:center;">${p.length}×${p.width}×${p.height}</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:right;">${vTotal.toFixed(3)}</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:right;">${wTotal.toFixed(1)}</td>
-      </tr>`;
-    });
+  let routeText = `${d.province} (КНР) ➔ Мишань ➔ Владивосток`;
+  if (d.rfCity) routeText += ` ➔ ${d.rfCity}`;
+
+  let transportDesc = `Забор груза (${d.province}), перевозка ${d.province} — Мишань — Владивосток`;
+  if (d.rfCity) transportDesc += `, доставка до ${d.rfCity}`;
+
+  // Характеристики груза
+  let cargoHTML = '';
+  if (d.mode === 'dimensions') {
+    cargoHTML = `
+      <div class="cargo-card">
+        <div class="label">Мест</div>
+        <div class="val">${d.qty} <small>шт</small></div>
+      </div>
+      <div class="cargo-card">
+        <div class="label">Фактический вес</div>
+        <div class="val">${d.wTotal.toFixed(1)} <small>кг</small></div>
+      </div>
+      <div class="cargo-card">
+        <div class="label">Объём</div>
+        <div class="val">${d.vTotal.toFixed(3)} <small>м³</small></div>
+      </div>
+      <div class="cargo-card" style="background:#E8F5ED; border-color:#119C41;">
+        <div class="label" style="color:#0E7A35;">Расчётный вес</div>
+        <div class="val" style="color:#0E7A35;">${d.calcWeight.toFixed(1)} <small>кг</small></div>
+      </div>
+    `;
   } else {
-    appState.placesVol.forEach((p, i) => {
-      placesRows += `<tr>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:center;">${i+1}</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:center;">${p.qty}</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:center;">—</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:right;">${p.volume.toFixed(3)}</td>
-        <td style="padding:8px 10px;border-bottom:1px solid #e2e8e6;text-align:right;">${p.weight.toFixed(1)}</td>
-      </tr>`;
-    });
+    cargoHTML = `
+      <div class="cargo-card">
+        <div class="label">Объём</div>
+        <div class="val">${d.vTotal.toFixed(3)} <small>м³</small></div>
+      </div>
+      <div class="cargo-card">
+        <div class="label">Фактический вес</div>
+        <div class="val">${d.wTotal.toFixed(1)} <small>кг</small></div>
+      </div>
+      <div class="cargo-card" style="background:#E8F5ED; border-color:#119C41;">
+        <div class="label" style="color:#0E7A35;">Расчётный вес</div>
+        <div class="val" style="color:#0E7A35;">${d.calcWeight.toFixed(1)} <small>кг</small></div>
+      </div>
+    `;
   }
 
   const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Inter',Arial,sans-serif; padding:35px 40px; color:#1A2C2C; background:white; }
-  .header { display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid #119C41; padding-bottom:14px; margin-bottom:24px; }
-  .logo { font-size:30px; font-weight:800; }
+  body { font-family:'Inter',Arial,sans-serif; padding:40px; color:#1A2C2C; background:white; line-height:1.5; }
+  
+  /* Шапка */
+  .header { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #119C41; padding-bottom:20px; margin-bottom:30px; }
+  .logo { font-size:36px; font-weight:900; letter-spacing:-1px; }
   .logo span { color:#119C41; }
-  .manager { text-align:right; font-size:11px; color:#5a6e6e; line-height:1.55; }
-  .manager strong { color:#1A2C2C; font-size:12px; }
-  h1 { font-size:22px; margin:0 0 4px 0; }
-  .date { color:#5a6e6e; margin-bottom:24px; font-size:13px; }
-  h2 { font-size:15px; margin:22px 0 10px; color:#1A2C2C; }
-  table { width:100%; border-collapse:collapse; font-size:12px; margin:8px 0 16px; }
-  th { background:#0a2b2b; color:white; font-weight:700; padding:9px 10px; text-align:left; font-size:0.65rem; text-transform:uppercase; border-bottom:2px solid #119C41; }
-  td { padding:8px 10px; border-bottom:1px solid #edf2f6; }
-  tr:nth-child(even) td { background:#f8fafc; }
-  .summary { background:#E8F5ED; border-radius:12px; padding:22px 26px; margin:24px 0; display:flex; justify-content:space-between; align-items:center; border:2px solid #119C41; }
-  .summary .label { font-size:14px; color:#0E7A35; font-weight:600; }
-  .summary .price { font-size:28px; font-weight:800; color:#0E7A35; }
-  .info-block { background:#f8fafc; border-radius:12px; padding:16px 20px; margin:16px 0; border:1px solid #dce4e8; font-size:13px; line-height:1.7; }
-  .info-block ul { margin-left:18px; margin-top:6px; }
-  .signature { margin-top:35px; border-top:1px solid #e2e8e6; padding-top:22px; }
-  .signature .name { font-size:16px; font-weight:600; margin:4px 0; }
-  .signature .contacts { font-size:11px; color:#5a6e6e; margin-top:6px; line-height:1.6; }
+  .doc-info { text-align:right; font-size:12px; color:#5a6e6e; }
+  .doc-info strong { display:block; font-size:16px; color:#1A2C2C; margin-bottom:4px; }
+  
+  h1 { font-size:26px; margin-bottom:6px; }
+  .subtitle { color:#119C41; font-size:15px; font-weight:600; margin-bottom:30px; text-transform:uppercase; letter-spacing:1px; }
+  
+  /* Инфографика маршрута */
+  .route-box { background:#f8fafc; border-radius:16px; padding:20px; border:1px solid #dce4e8; margin-bottom:30px; display:flex; align-items:center; justify-content:center; gap:15px; font-size:15px; font-weight:600; color:#1A2C2C; text-align:center; flex-wrap:wrap; }
+  .route-box i { color:#119C41; font-size:20px; }
+  
+  /* Параметры груза */
+  .cargo-grid { display:flex; gap:15px; margin-bottom:30px; flex-wrap:wrap; }
+  .cargo-card { flex:1; min-width:120px; background:white; border-radius:14px; padding:15px; border:1px solid #e2e8e6; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.02); }
+  .cargo-card .label { font-size:11px; text-transform:uppercase; color:#8a9b9b; font-weight:700; margin-bottom:5px; }
+  .cargo-card .val { font-size:20px; font-weight:800; color:#1A2C2C; }
+  .cargo-card .val small { font-size:12px; color:#5a6e6e; font-weight:500; }
+  
+  /* Блок стоимости */
+  .price-title { font-size:16px; font-weight:700; margin-bottom:15px; color:#1A2C2C; border-left:4px solid #119C41; padding-left:12px; }
+  .price-block { border:1px solid #e2e8e6; border-radius:16px; overflow:hidden; margin-bottom:20px; }
+  .price-row { display:flex; justify-content:space-between; padding:15px 20px; border-bottom:1px solid #f0f4f8; font-size:14px; }
+  .price-row:last-child { border-bottom:none; }
+  .price-row:nth-child(even) { background:#fafcfe; }
+  .price-row .name { color:#3d5353; max-width:70%; }
+  .price-row .val { font-weight:700; color:#1A2C2C; }
+  .price-row .val small { display:block; font-size:10px; color:#8a9b9b; font-weight:400; text-align:right; margin-top:2px; }
+  
+  /* Итого */
+  .total-box { background:#E8F5ED; border-radius:16px; padding:25px; display:flex; justify-content:space-between; align-items:center; border:2px solid #119C41; margin-bottom:30px; }
+  .total-box .label { font-size:16px; font-weight:600; color:#0E7A35; }
+  .total-box .price { font-size:32px; font-weight:900; color:#0E7A35; }
+  
+  /* Условия */
+  .terms { font-size:12px; color:#5a6e6e; background:#f8fafc; padding:15px; border-radius:12px; margin-bottom:30px; }
+  .terms ul { margin-left:15px; margin-top:5px; }
+  
+  /* Подпись */
+  .footer { border-top:1px solid #e2e8e6; padding-top:20px; display:flex; justify-content:space-between; align-items:flex-end; }
+  .footer .manager { font-size:12px; color:#5a6e6e; }
+  .footer .manager strong { font-size:14px; color:#1A2C2C; display:block; margin-bottom:2px; }
+  .footer .stamp { font-size:12px; color:#119C41; font-weight:700; border:2px solid #119C41; padding:5px 15px; border-radius:8px; transform:rotate(-5deg); opacity:0.7; }
+  
+  /* Принт */
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding:20px; }
+  }
   </style></head><body>
+
+  <!-- Шапка -->
   <div class="header">
     <div class="logo">СДЭК<span>.</span></div>
-    <div class="manager"><strong>Полтэф Герман</strong><br>Коммерческий представитель СДЭК<br>+7 (931) 105-66-77 · g.poltef@cdek.ru</div>
+    <div class="doc-info">
+      <strong>Коммерческое предложение № ${Math.floor(Math.random()*10000)}</strong>
+      Дата: ${dateStr}
+    </div>
   </div>
-  <h1>Коммерческое предложение</h1>
-  <div class="date">Авто доставка Шанхай — Владивосток · Дата: ${dateStr}</div>
-  <h2>Параметры груза</h2>
-  <table>
-    <thead><tr>
-      <th style="text-align:center;">№</th><th style="text-align:center;">Кол-во</th><th style="text-align:center;">Габариты, см</th>
-      <th style="text-align:right;">Объём, м³</th><th style="text-align:right;">Вес, кг</th>
-    </tr></thead>
-    <tbody>${placesRows}</tbody>
-  </table>
-  <div class="info-block">
-    <strong>Общий объём:</strong> ${c.totalVolume.toFixed(3)} м³<br>
-    <strong>Общий вес:</strong> ${c.totalWeight.toFixed(1)} кг<br>
-    <strong>Расчётный вес:</strong> ${c.totalCalcWeight.toFixed(1)} кг
+
+  <h1>Логистическое решение</h1>
+  <div class="subtitle">Международная доставка груза</div>
+
+  <!-- Маршрут -->
+  <div class="route-box">
+    <i class="fas fa-map-marker-alt"></i> ${d.province} (КНР) 
+    <i class="fas fa-arrow-right"></i> Мишань 
+    <i class="fas fa-arrow-right"></i> Владивосток 
+    ${d.rfCity ? `<i class="fas fa-arrow-right"></i> ${d.rfCity}` : ''}
   </div>
-  <div class="summary">
-    <span class="label">Стоимость доставки до СВХ Таможенный Портал (Владивосток):</span>
-    <span class="price">${c.clientPrice.toFixed(2)} ₽</span>
+
+  <!-- Характеристики груза -->
+  <div class="cargo-grid">
+    ${cargoHTML}
   </div>
-  <div class="info-block">
-    <strong>В стоимость входит:</strong>
+
+  <!-- Стоимость -->
+  <div class="price-title">Структура стоимости</div>
+  <div class="price-block">
+    <div class="price-row">
+      <div class="name">🚚 Транспортировка и забор груза<br><small style="color:#8a9b9b; font-size:11px;">${transportDesc}</small></div>
+      <div class="val">${d.clientTransport.toFixed(2)} ₽</div>
+    </div>
+    <div class="price-row">
+      <div class="name">📦 Терминальная и складская обработка<br><small style="color:#8a9b9b; font-size:11px;">Склады КНР и Владивостока, пограничный терминал, СВХ ${d.lclOn ? '+ СЦ' : ''}</small></div>
+      <div class="val">${d.clientHandling.toFixed(2)} ₽</div>
+    </div>
+    ${d.clientCustoms > 0 ? `
+    <div class="price-row">
+      <div class="name">📑 Таможенное оформление<br><small style="color:#8a9b9b; font-size:11px;">Экспортное и импортное ТО</small></div>
+      <div class="val">${d.clientCustoms.toFixed(2)} ₽</div>
+    </div>` : ''}
+  </div>
+
+  <!-- Итого -->
+  <div class="total-box">
+    <span class="label">Итого к оплате:</span>
+    <span class="price">${d.clientTotal.toFixed(2)} ₽</span>
+  </div>
+
+  <!-- Условия -->
+  <div class="terms">
+    <strong>В стоимость включено:</strong>
     <ul>
-      <li>Забор груза у отправителя</li>
-      <li>Перевозка Шанхай — ТП Мишань — Владивосток</li>
-      <li>Складская и терминальная обработка в КНР и в РФ</li>
-      <li>Услуги СВХ Таможенный Портал</li>
-      ${appState.lcl ? '<li>Доставка СВХ → СЦ Владивосток (сборный груз)</li>' : ''}
+      <li>Забор груза в провинции ${d.province} (КНР)</li>
+      <li>Магистральная перевозка ${d.province} — Мишань — Владивосток</li>
+      <li>Складская и терминальная обработка</li>
+      <li>Услуги СВХ «Таможенный Портал» (Владивосток)</li>
+      ${d.rfCity ? `<li>Доставка до г. ${d.rfCity}</li>` : ''}
     </ul>
     <br>
-    <em style="color:#7a8a8a;font-size:11px;">* Не включены: доставка по РФ, хранение на СВХ сверх нормы.</em>
+    <em>* Не включено: хранение на СВХ сверх нормы, услуги брокера (если не включены в ТО).</em>
   </div>
-  <div class="signature">
-    <p style="font-size:14px;color:#5a6e6e;">С уважением,</p>
-    <div class="name">Полтэф Герман</div>
-    <div style="font-size:12px;color:#5a6e6e;">Коммерческий представитель СДЭК</div>
-    <div class="contacts">Тел.: +7 (931) 105-66-77<br>E-mail: g.poltef@cdek.ru</div>
+
+  <!-- Подпись -->
+  <div class="footer">
+    <div class="manager">
+      С уважением,<br>
+      <strong>${m.name}</strong>
+      ${m.title}<br>
+      Тел.: ${m.phones}<br>
+      E-mail: ${m.email}
+    </div>
+    <div class="stamp">СДЭК</div>
   </div>
+
   </body></html>`;
 
   const iframe = document.createElement('iframe');
@@ -568,60 +577,33 @@ function exportPDF() {
   doc.open(); doc.write(html); doc.close();
   iframe.onload = function() {
     setTimeout(function() {
-      try { iframe.contentWindow.focus(); iframe.contentWindow.print(); } catch(e) { alert('Ошибка печати: ' + e.message); }
+      try { iframe.contentWindow.focus(); iframe.contentWindow.print(); } catch(e) { alert('Ошибка: ' + e.message); }
       setTimeout(function() { if (iframe.parentNode) iframe.parentNode.removeChild(iframe); }, 60000);
     }, 500);
   };
 }
 
-// ==================== ОБРАБОТЧИКИ ====================
-document.getElementById('addPlaceBtn').addEventListener('click', function() {
-  if (appState.mode === 'dimensions') {
-    appState.placesDim.push({ qty:1, length:0, width:0, height:0, weight:0 });
-    renderPlacesDim();
-  } else {
-    appState.placesVol.push({ qty:1, volume:0, weight:0 });
-    renderPlacesVol();
-  }
-  calculate();
-});
-document.getElementById('cnyRate').addEventListener('input', function() {
-  appState.cnyRate = parseFloat(this.value) || 0; calculate();
-});
-document.getElementById('lclToggle').addEventListener('change', function() {
-  appState.lcl = this.checked; calculate();
-});
-document.getElementById('marginPercent').addEventListener('input', function() {
-  appState.margin = parseFloat(this.value) || 0; calculate();
+// ==================== ИНИЦИАЛИЗАЦИЯ ====================
+document.querySelectorAll('input, select').forEach(el => {
+  el.addEventListener('input', calculate);
+  el.addEventListener('change', calculate);
 });
 
-// Настройки ставок
-const rateMap = {
-  rShanghaiMishan: 'shanghaiMishan',
-  rMishanVlad: 'mishanVlad',
-  rTerminalBorder: 'terminalBorder',
-  rWarehouseVlad: 'warehouseVlad',
-  rTerminalSVH: 'terminalSVH',
-  rWarehouseCN: 'warehouseCN',
-  rExportCN: 'exportCN',
-  rLcl: 'lcl',
-  rPickupCNY: 'pickupCNY'
-};
-Object.keys(rateMap).forEach(id => {
-  const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener('input', function() {
-      appState.rates[rateMap[id]] = parseFloat(this.value) || 0;
-      calculate();
-    });
-  }
+// Синхронизация слайдера и поля ввода маржи
+const marginRange = document.getElementById('marginRange');
+const marginPercent = document.getElementById('marginPercent');
+marginRange.addEventListener('input', function() {
+  marginPercent.value = this.value;
+  calculate();
+});
+marginPercent.addEventListener('input', function() {
+  marginRange.value = this.value;
+  calculate();
 });
 
 document.getElementById('exportBtn').addEventListener('click', exportPDF);
 
-// ==================== СТАРТ ====================
-renderPlacesDim();
-renderPlacesVol();
+// Первый расчет
 calculate();
 </script>
 </body>
