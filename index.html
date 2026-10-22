@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Калькулятор Авто Шанхай — Владивосток | СДЭК</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<title>Калькулятор КП | СДЭК</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -13,7 +13,7 @@ body { background:#f4f7fa; font-family:'Inter',system-ui,sans-serif; padding:2re
 
 /* Шапка */
 .header-card { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-bottom:1.5rem; border-bottom:2px solid #eef2f5; margin-bottom:1.8rem; }
-.logo-text { font-size:2rem; font-weight:800; color:#1A2C2C; }
+.logo-text { font-size:2rem; font-weight:900; color:#1A2C2C; letter-spacing:-1px; }
 .logo-text span { color:#119C41; }
 .manager-switch { display:inline-flex; background:#eef2f5; border-radius:40px; padding:4px; margin-bottom:0.5rem; }
 .manager-switch button { background:none; border:none; padding:0.4rem 1.2rem; border-radius:40px; font-weight:600; font-size:0.85rem; cursor:pointer; transition:0.15s; color:#5a6e6e; font-family:inherit; }
@@ -22,12 +22,12 @@ body { background:#f4f7fa; font-family:'Inter',system-ui,sans-serif; padding:2re
 .manager-info strong { color:#1A2C2C; font-size:0.95rem; }
 .manager-info a { color:#119C41; text-decoration:none; font-weight:500; }
 
-h1 { font-size:1.8rem; margin-bottom:0.2rem; display:flex; align-items:center; gap:10px; }
+h1 { font-size:1.8rem; margin-bottom:0.2rem; display:flex; align-items:center; gap:10px; font-weight:800; }
 .sub { color:#5a6e6e; margin-bottom:2rem; }
-h2 { font-size:1.15rem; margin:1.5rem 0 0.8rem; display:flex; align-items:center; gap:8px; color:#1A2C2C; }
+h2 { font-size:1.15rem; margin:1.5rem 0 0.8rem; display:flex; align-items:center; gap:8px; color:#1A2C2C; font-weight:700; }
 h2 i { color:#119C41; }
 
-/* Переключатель режима ввода */
+/* Переключатель режима */
 .mode-switch { display:inline-flex; background:#eef2f5; border-radius:40px; padding:4px; margin-bottom:1rem; }
 .mode-switch button { background:none; border:none; padding:0.5rem 1.5rem; border-radius:40px; font-weight:600; font-size:0.9rem; cursor:pointer; transition:0.15s; color:#5a6e6e; font-family:inherit; }
 .mode-switch button.active { background:#119C41; color:white; box-shadow:0 2px 8px rgba(17,156,65,0.3); }
@@ -43,7 +43,7 @@ h2 i { color:#119C41; }
 .field.checkbox-field input[type="checkbox"] { width:20px; height:20px; accent-color:#119C41; cursor:pointer; }
 .field.checkbox-field label { text-transform:none; font-size:0.9rem; cursor:pointer; margin:0; }
 
-/* Блок результатов */
+/* Результаты */
 .result-block { background:#E8F5ED; border:2px solid #119C41; border-radius:20px; padding:1.5rem; margin:2rem 0; }
 .result-row { display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px dashed #c8e6d3; font-size:0.95rem; }
 .result-row:last-child { border-bottom:none; }
@@ -66,7 +66,7 @@ h2 i { color:#119C41; }
   <div class="header-card">
     <div>
       <div class="logo-text">СДЭК<span>.</span></div>
-      <span style="font-weight:500;color:#5a6e6e;font-size:0.9rem;">Калькулятор Авто Шанхай — Владивосток</span>
+      <span style="font-weight:500;color:#5a6e6e;font-size:0.9rem;">Калькулятор КП</span>
     </div>
     
     <div>
@@ -81,16 +81,44 @@ h2 i { color:#119C41; }
   <h1><i class="fas fa-calculator" style="color:#119C41;"></i> Расчёт КП</h1>
   <div class="sub">Введите данные груза и логистики для формирования предложения</div>
 
+  <!-- 0. Данные клиента -->
+  <h2><i class="fas fa-user-tie"></i> 0. Данные клиента</h2>
+  <div class="grid-card">
+    <div class="grid-row">
+      <div class="field">
+        <label>Клиент / Компания</label>
+        <input type="text" id="clientName" placeholder="ООО «Ромашка»">
+      </div>
+      <div class="field">
+        <label>Наименование груза</label>
+        <input type="text" id="cargoName" placeholder="Например, Обувь, Электроника">
+      </div>
+      <div class="field">
+        <label>Срок доставки (дней)</label>
+        <input type="text" id="deliveryDays" placeholder="Например, 15–20">
+      </div>
+      <div class="field">
+        <label>Условия оплаты (предоплата %)</label>
+        <input type="number" id="prepayPercent" value="50" min="0" max="100" step="5">
+      </div>
+      <div class="field">
+        <label>НДС (в стоимости услуг СДЭК)</label>
+        <select id="vatType">
+          <option value="20">В т.ч. НДС 20%</option>
+          <option value="0">Без НДС</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <!-- 1. Груз -->
   <h2><i class="fas fa-box"></i> 1. Параметры груза</h2>
   <div class="grid-card">
-    <!-- Переключатель режима -->
     <div class="mode-switch">
       <button id="modeDimensions" class="active" onclick="setMode('dimensions')">По габаритам (Д×Ш×В)</button>
       <button id="modeVolume" onclick="setMode('volume')">По объёму (м³)</button>
     </div>
 
-    <!-- Поля для режима "Габариты" -->
     <div id="fieldsDimensions">
       <div class="grid-row">
         <div class="field"><label>Количество мест</label><input type="number" id="qty" value="9" min="1"></div>
@@ -101,7 +129,6 @@ h2 i { color:#119C41; }
       </div>
     </div>
 
-    <!-- Поля для режима "Объём" -->
     <div id="fieldsVolume" style="display:none;">
       <div class="grid-row">
         <div class="field"><label>Общий объём, м³</label><input type="number" id="totalVolumeInput" value="1.136" step="0.001"></div>
@@ -177,7 +204,8 @@ h2 i { color:#119C41; }
   <!-- 3. Таможня -->
   <h2><i class="fas fa-file-signature"></i> 3. Таможенное оформление</h2>
   <div class="grid-card">
-    <div class="grid-row">
+    <div style="font-size:0.85rem; font-weight:700; color:#119C41; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Услуги таможенного отдела СДЭК</div>
+    <div class="grid-row" style="margin-bottom:1.5rem;">
       <div class="field">
         <label>Экспортное ТО (КНР), ₽</label>
         <input type="number" id="exportTO" value="0" step="100">
@@ -187,21 +215,47 @@ h2 i { color:#119C41; }
         <input type="number" id="importTO" value="0" step="100">
       </div>
     </div>
-    <div style="font-size:0.8rem; color:#5a6e6e; margin-top:0.5rem;">* Если клиент делает ТО сам — оставьте 0.</div>
+
+    <div style="border-top:1px dashed #d0d9df; padding-top:1.2rem;">
+      <div style="font-size:0.85rem; font-weight:700; color:#5a6e6e; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px; display:flex; justify-content:space-between;">
+        <span>Таможенные платежи (пошлина и НДС)</span>
+        <span style="color:#E67E22; font-size:0.7rem; background:#FFF3E0; padding:2px 8px; border-radius:10px;">Оплачивается отдельно</span>
+      </div>
+      <div class="grid-row">
+        <div class="field">
+          <label>Таможенная стоимость (₽)</label>
+          <input type="number" id="customsValue" value="0" step="1000">
+        </div>
+        <div class="field">
+          <label>Ставка пошлины (%)</label>
+          <input type="number" id="dutyRate" value="0" step="1">
+        </div>
+        <div class="field">
+          <label>Ставка НДС (%)</label>
+          <input type="number" id="taxVatRate" value="20" step="1">
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Результаты -->
   <h2><i class="fas fa-chart-line"></i> 4. Финансовый результат</h2>
   <div class="result-block">
-    <div class="result-row"><span>Себестоимость (закупка)</span><span id="outCost">0 ₽</span></div>
+    <div class="result-row"><span>Себестоимость услуг СДЭК (закупка)</span><span id="outCost">0 ₽</span></div>
     <div class="margin-slider">
       <label style="font-weight:700; color:#0E7A35; white-space:nowrap;">Маржа СДЭК:</label>
       <input type="range" id="marginRange" min="0" max="100" value="20" step="1">
       <input type="number" id="marginPercent" value="20" min="0" max="100">
       <span style="font-weight:700; color:#0E7A35;">%</span>
     </div>
-    <div class="result-row total"><span>Цена для клиента</span><span id="outClientPrice">0 ₽</span></div>
-    <div class="result-row" style="font-size:0.85rem; color:#5a6e6e;"><span>Прибыль менеджера</span><span id="outProfit">0 ₽</span></div>
+    <div class="result-row total"><span>Услуги СДЭК (с маржой)</span><span id="outClientPrice">0 ₽</span></div>
+    <div class="result-row" style="color:#E67E22; font-weight:600; border-top:1px dashed #c8e6d3; padding-top:0.8rem; margin-top:0.5rem;">
+      <span>Таможенные платежи (пошлина + НДС)</span><span id="outCustomsTax">0 ₽</span>
+    </div>
+    <div class="result-row" style="font-size:1.2rem; font-weight:800; color:#1A2C2C; border-top:2px solid #119C41; padding-top:0.8rem; margin-top:0.5rem;">
+      <span>Всего к оплате (услуги + платежи)</span><span id="outGrandTotal">0 ₽</span>
+    </div>
+    <div class="result-row" style="font-size:0.85rem; color:#5a6e6e;"><span>Прибыль менеджера (с услуг)</span><span id="outProfit">0 ₽</span></div>
   </div>
 
   <button class="btn-export" id="exportBtn"><i class="fas fa-file-pdf"></i> Скачать КП для клиента (PDF)</button>
@@ -210,18 +264,8 @@ h2 i { color:#119C41; }
 <script>
 // ==================== БАЗА МЕНЕДЖЕРОВ ====================
 const managers = {
-  german: {
-    name: 'Полтэф Герман',
-    title: 'Коммерческий представитель СДЭК',
-    phones: '+7 (931) 105-66-77',
-    email: 'g.poltef@cdek.ru'
-  },
-  ekaterina: {
-    name: 'Неслухова Екатерина',
-    title: 'Коммерческий представитель СДЭК',
-    phones: '+7 (966) 666-90-04',
-    email: 'e.protasova@cdek.ru'
-  }
+  german: { name: 'Полтэф Герман', title: 'Коммерческий представитель СДЭК', phones: '+7 (931) 105-66-77', email: 'g.poltef@cdek.ru' },
+  ekaterina: { name: 'Неслухова Екатерина', title: 'Коммерческий представитель СДЭК', phones: '+7 (966) 666-90-04', email: 'e.protasova@cdek.ru' }
 };
 let currentManager = 'german';
 
@@ -238,17 +282,32 @@ function switchManager(mgr) {
 }
 switchManager('german');
 
+// ==================== СТАБИЛЬНЫЙ НОМЕР КП ====================
+const now = new Date();
+const datePart = now.getFullYear().toString() + (now.getMonth()+1).toString().padStart(2, '0') + now.getDate().toString().padStart(2, '0');
+const randomPart = Math.floor(1000 + Math.random() * 9000);
+const KpNumber = `КП-${datePart}-${randomPart}`;
+
+// ==================== СЛОВАРЬ ПРОВИНЦИЙ ====================
+const provinceNames = {
+  '上海': 'Шанхай', '北京': 'Пекин', '天津': 'Тяньцзинь', '河北': 'Хэбэй',
+  '山西': 'Шаньси', '内蒙古': 'Внутренняя Монголия', '辽宁': 'Ляонин', '吉林': 'Цзилинь',
+  '黑龙江': 'Хэйлунцзян', '江苏': 'Цзянсу', '浙江': 'Чжэцзян', '安徽': 'Аньхой',
+  '福建': 'Фуцзянь', '江西': 'Цзянси', '山东': 'Шаньдун', '河南': 'Хэнань',
+  '湖北': 'Хубэй', '广东': 'Гуандун', '广西': 'Гуанси', '海南': 'Хайнань',
+  '重庆': 'Чунцин', '四川': 'Сычуань', '贵州': 'Гуйчжоу', '云南': 'Юньнань',
+  '陕西': 'Шэньси', '甘肃': 'Ганьсу', '青海': 'Цинхай', '新疆': 'Синьцзян'
+};
+
 // ==================== РЕЖИМ ВВОДА ====================
-let inputMode = 'dimensions'; // 'dimensions' | 'volume'
+let inputMode = 'dimensions'; 
 
 function setMode(mode) {
   inputMode = mode;
   document.getElementById('modeDimensions').classList.toggle('active', mode === 'dimensions');
   document.getElementById('modeVolume').classList.toggle('active', mode === 'volume');
-  
   document.getElementById('fieldsDimensions').style.display = mode === 'dimensions' ? 'block' : 'none';
   document.getElementById('fieldsVolume').style.display = mode === 'volume' ? 'block' : 'none';
-  
   calculate();
 }
 
@@ -297,8 +356,6 @@ function getPickupRate(province, weight) {
 }
 
 // ==================== КОНСТАНТЫ И СТАВКИ ====================
-const RATE_PER_KG = 22;
-const RATE_PER_M3 = 6419;
 const RATES = {
   shanghaiMishan: 19.68,
   mishanVlad: 26.84,
@@ -308,6 +365,14 @@ const RATES = {
   warehouseCN: 312,
   lcl: 1022.787
 };
+
+// ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
+function formatMoney(val) {
+  return new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(val);
+}
+function formatMoneyInt(val) {
+  return new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Math.round(val));
+}
 
 // ==================== СБОР ДАННЫХ И РАСЧЕТ ====================
 function calculate() {
@@ -319,7 +384,6 @@ function calculate() {
     const width = parseFloat(document.getElementById('width').value) || 0;
     const height = parseFloat(document.getElementById('height').value) || 0;
     const weight = parseFloat(document.getElementById('weight').value) || 0;
-
     const vOne = (length * width * height) / 1_000_000;
     vTotal = vOne * qty;
     wTotal = weight * qty;
@@ -328,15 +392,14 @@ function calculate() {
     wTotal = parseFloat(document.getElementById('totalWeightInput').value) || 0;
   }
 
-  const volWeight = vTotal * 200; // Объёмный вес (200 кг/м³)
-  const calcWeight = Math.max(wTotal, volWeight); // БЕРЕМ МАКСИМУМ!
+  const volWeight = vTotal * 200; 
+  const calcWeight = Math.max(wTotal, volWeight); 
 
   document.getElementById('outVolume').textContent = vTotal.toFixed(3);
   document.getElementById('outWeight').textContent = wTotal.toFixed(1);
   document.getElementById('outVolWeight').textContent = volWeight.toFixed(1);
   document.getElementById('outCalcWeight').textContent = calcWeight.toFixed(1);
 
-  // 2. Логистика и Таможня
   const province = document.getElementById('pickupProvince').value;
   const cnyRate = parseFloat(document.getElementById('cnyRate').value) || 12;
   const rfCity = document.getElementById('rfCity').value.trim();
@@ -345,8 +408,16 @@ function calculate() {
   const exportTO = parseFloat(document.getElementById('exportTO').value) || 0;
   const importTO = parseFloat(document.getElementById('importTO').value) || 0;
   const margin = parseFloat(document.getElementById('marginPercent').value) || 0;
+  
+  // Таможенные платежи (справочно)
+  const customsValue = parseFloat(document.getElementById('customsValue').value) || 0;
+  const dutyRate = parseFloat(document.getElementById('dutyRate').value) || 0;
+  const taxVatRate = parseFloat(document.getElementById('taxVatRate').value) || 0;
+  
+  const dutyAmount = customsValue * (dutyRate / 100);
+  const vatAmount = (customsValue + dutyAmount) * (taxVatRate / 100);
+  const totalCustomsTax = dutyAmount + vatAmount;
 
-  // 3. Расчет статей (ЗАКУПКА)
   const pickupCNY = getPickupRate(province, calcWeight);
   const pickupRUB = pickupCNY * cnyRate;
 
@@ -355,217 +426,334 @@ function calculate() {
   const warehouseCN = RATES.warehouseCN;
   const terminalBorder = RATES.terminalBorder * calcWeight;
   const warehouseVlad = RATES.warehouseVlad * calcWeight;
-  const terminalSVH = RATES.terminalSVH * wTotal; // От фактического веса!
+  const terminalSVH = RATES.terminalSVH * wTotal; 
   const lclCost = lclOn ? RATES.lcl : 0;
 
-  // Себестоимость (закупка)
   const costTransport = pickupRUB + shanghaiMishan + mishanVlad + rfDelivery;
   const costHandling = warehouseCN + terminalBorder + warehouseVlad + terminalSVH + lclCost;
   const costCustoms = exportTO + importTO;
   const totalCost = costTransport + costHandling + costCustoms;
 
-  // Наценка (Цена для клиента)
   const multiplier = 1 + (margin / 100);
   const clientTransport = costTransport * multiplier;
   const clientHandling = costHandling * multiplier;
   const clientCustoms = costCustoms * multiplier;
   const clientTotal = totalCost * multiplier;
+  
+  const grandTotal = clientTotal + totalCustomsTax;
 
-  document.getElementById('outCost').textContent = totalCost.toFixed(2) + ' ₽';
-  document.getElementById('outClientPrice').textContent = clientTotal.toFixed(2) + ' ₽';
-  document.getElementById('outProfit').textContent = (clientTotal - totalCost).toFixed(2) + ' ₽';
+  document.getElementById('outCost').textContent = formatMoney(totalCost) + ' ₽';
+  document.getElementById('outClientPrice').textContent = formatMoney(clientTotal) + ' ₽';
+  document.getElementById('outCustomsTax').textContent = formatMoney(totalCustomsTax) + ' ₽';
+  document.getElementById('outGrandTotal').textContent = formatMoney(grandTotal) + ' ₽';
+  document.getElementById('outProfit').textContent = formatMoney(clientTotal - totalCost) + ' ₽';
 
   return {
     qty, vTotal, wTotal, volWeight, calcWeight,
-    province, cnyRate, rfCity, rfDelivery, lclOn, exportTO, importTO,
-    pickupCNY, pickupRUB, shanghaiMishan, mishanVlad, warehouseCN, terminalBorder, warehouseVlad, terminalSVH, lclCost,
+    province, provinceRu: provinceNames[province] || province,
+    cnyRate, rfCity, rfDelivery, lclOn, exportTO, importTO,
     costTransport, costHandling, costCustoms, totalCost,
     margin, multiplier, clientTransport, clientHandling, clientCustoms, clientTotal,
-    mode: inputMode
+    customsValue, dutyRate, taxVatRate, dutyAmount, vatAmount, totalCustomsTax,
+    grandTotal, mode: inputMode
   };
 }
 
-// ==================== ГЕНЕРАЦИЯ PDF (КРАСИВОЕ КП) ====================
+// ==================== ГЕНЕРАЦИЯ PDF (КОМПАКТНЫЙ ДИЗАЙН ДЛЯ 1 СТРАНИЦЫ) ====================
 function exportPDF() {
   const d = calculate();
   const m = managers[currentManager];
   const dateStr = new Date().toLocaleDateString('ru-RU', { day:'numeric', month:'long', year:'numeric' });
+  const validDate = new Date();
+  validDate.setDate(validDate.getDate() + 7);
+  const validDateStr = validDate.toLocaleDateString('ru-RU', { day:'numeric', month:'long', year:'numeric' });
 
-  let routeText = `${d.province} (КНР) ➔ Мишань ➔ Владивосток`;
-  if (d.rfCity) routeText += ` ➔ ${d.rfCity}`;
+  const clientName = document.getElementById('clientName').value.trim() || '—';
+  const cargoName = document.getElementById('cargoName').value.trim() || '—';
+  const deliveryDays = document.getElementById('deliveryDays').value.trim() || '—';
+  const prepayPercent = document.getElementById('prepayPercent').value || '50';
+  const vatType = document.getElementById('vatType').value;
+  const vatText = vatType === '20' ? 'В т.ч. НДС 20%' : 'Без НДС';
 
-  let transportDesc = `Забор груза (${d.province}), перевозка ${d.province} — Мишань — Владивосток`;
-  if (d.rfCity) transportDesc += `, доставка до ${d.rfCity}`;
+  const ratePerKg = d.calcWeight > 0 ? d.clientTotal / d.calcWeight : 0;
+  const density = d.vTotal > 0 ? d.wTotal / d.vTotal : 0;
 
-  // Характеристики груза
+  let routeHTML = `
+    <div class="route-step">
+      <div class="step-node">01</div>
+      <div class="step-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <div class="step-title">${d.provinceRu}</div>
+      <div class="step-desc">Забор груза</div>
+    </div>
+    <div class="route-line"></div>
+    <div class="route-step">
+      <div class="step-node">02</div>
+      <div class="step-icon"><i class="fas fa-passport"></i></div>
+      <div class="step-title">Мишань</div>
+      <div class="step-desc">Граница КНР</div>
+    </div>
+    <div class="route-line"></div>
+    <div class="route-step">
+      <div class="step-node">03</div>
+      <div class="step-icon"><i class="fas fa-warehouse"></i></div>
+      <div class="step-title">Владивосток</div>
+      <div class="step-desc">СВХ</div>
+    </div>
+  `;
+  
+  if (d.rfCity) {
+    routeHTML += `
+      <div class="route-line"></div>
+      <div class="route-step highlight">
+        <div class="step-node">04</div>
+        <div class="step-icon"><i class="fas fa-building"></i></div>
+        <div class="step-title">г. ${d.rfCity}</div>
+        <div class="step-desc">Доставка</div>
+      </div>
+    `;
+  }
+
+  let cardsHTML = `
+    <div class="cost-card">
+      <div class="card-icon"><i class="fas fa-truck"></i></div>
+      <div class="card-content">
+        <div class="card-title">Транспортировка</div>
+        <div class="card-desc">Забор в провинции ${d.provinceRu}, магистральная перевозка до Владивостока ${d.rfCity ? ', доставка до г. ' + d.rfCity : ''}</div>
+      </div>
+      <div class="card-price">${formatMoneyInt(d.clientTransport)} ₽</div>
+    </div>
+    <div class="cost-card">
+      <div class="card-icon"><i class="fas fa-box-open"></i></div>
+      <div class="card-content">
+        <div class="card-title">Терминальная обработка</div>
+        <div class="card-desc">Склады КНР и Владивостока, пограничный терминал, услуги СВХ ${d.lclOn ? '+ СЦ' : ''}</div>
+      </div>
+      <div class="card-price">${formatMoneyInt(d.clientHandling)} ₽</div>
+    </div>
+  `;
+  
+  if (d.clientCustoms > 0) {
+    cardsHTML += `
+      <div class="cost-card">
+        <div class="card-icon"><i class="fas fa-file-signature"></i></div>
+        <div class="card-content">
+          <div class="card-title">Услуги таможенного отдела</div>
+          <div class="card-desc">Экспортное ТО (КНР) и импортное ТО (РФ)</div>
+        </div>
+        <div class="card-price">${formatMoneyInt(d.clientCustoms)} ₽</div>
+      </div>
+    `;
+  }
+
   let cargoHTML = '';
   if (d.mode === 'dimensions') {
     cargoHTML = `
-      <div class="cargo-card">
-        <div class="label">Мест</div>
-        <div class="val">${d.qty} <small>шт</small></div>
-      </div>
-      <div class="cargo-card">
-        <div class="label">Фактический вес</div>
-        <div class="val">${d.wTotal.toFixed(1)} <small>кг</small></div>
-      </div>
-      <div class="cargo-card">
-        <div class="label">Объём</div>
-        <div class="val">${d.vTotal.toFixed(3)} <small>м³</small></div>
-      </div>
-      <div class="cargo-card" style="background:#E8F5ED; border-color:#119C41;">
-        <div class="label" style="color:#0E7A35;">Расчётный вес</div>
-        <div class="val" style="color:#0E7A35;">${d.calcWeight.toFixed(1)} <small>кг</small></div>
-      </div>
+      <div class="stat-item"><div class="stat-val">${d.qty}</div><div class="stat-label">Мест</div></div>
+      <div class="stat-item"><div class="stat-val">${formatMoney(d.wTotal)}</div><div class="stat-label">Факт. вес (кг)</div></div>
+      <div class="stat-item"><div class="stat-val">${d.vTotal.toFixed(3)}</div><div class="stat-label">Объём (м³)</div></div>
+      <div class="stat-item highlight"><div class="stat-val">${formatMoney(d.calcWeight)}</div><div class="stat-label">Расчётный вес (кг)</div></div>
     `;
   } else {
     cargoHTML = `
-      <div class="cargo-card">
-        <div class="label">Объём</div>
-        <div class="val">${d.vTotal.toFixed(3)} <small>м³</small></div>
-      </div>
-      <div class="cargo-card">
-        <div class="label">Фактический вес</div>
-        <div class="val">${d.wTotal.toFixed(1)} <small>кг</small></div>
-      </div>
-      <div class="cargo-card" style="background:#E8F5ED; border-color:#119C41;">
-        <div class="label" style="color:#0E7A35;">Расчётный вес</div>
-        <div class="val" style="color:#0E7A35;">${d.calcWeight.toFixed(1)} <small>кг</small></div>
+      <div class="stat-item"><div class="stat-val">${d.vTotal.toFixed(3)}</div><div class="stat-label">Объём (м³)</div></div>
+      <div class="stat-item"><div class="stat-val">${formatMoney(d.wTotal)}</div><div class="stat-label">Факт. вес (кг)</div></div>
+      <div class="stat-item highlight"><div class="stat-val">${formatMoney(d.calcWeight)}</div><div class="stat-label">Расчётный вес (кг)</div></div>
+    `;
+  }
+
+  const toIncluded = d.clientCustoms > 0 
+    ? '<div class="included-item"><i class="fas fa-check"></i> Услуги таможенного отдела (ТО)</div>' 
+    : '';
+
+  let customsBlockHTML = '';
+  if (d.totalCustomsTax > 0) {
+    customsBlockHTML = `
+      <div class="section-title" style="margin-top: 10px;">Таможенные платежи (справочно)</div>
+      <div class="customs-grid">
+        <div class="customs-item"><span>Ввозная пошлина (${d.dutyRate}%)</span> <strong>${formatMoneyInt(d.dutyAmount)} ₽</strong></div>
+        <div class="customs-item"><span>НДС (${d.taxVatRate}%)</span> <strong>${formatMoneyInt(d.vatAmount)} ₽</strong></div>
+        <div class="customs-item total"><span>Итого платежей</span> <strong>${formatMoneyInt(d.totalCustomsTax)} ₽</strong></div>
       </div>
     `;
   }
 
   const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Inter',Arial,sans-serif; padding:40px; color:#1A2C2C; background:white; line-height:1.5; }
   
-  /* Шапка */
-  .header { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #119C41; padding-bottom:20px; margin-bottom:30px; }
-  .logo { font-size:36px; font-weight:900; letter-spacing:-1px; }
+  body { font-family:'Inter',Arial,sans-serif; padding:0; color:#1F2A24; background:#FFFFFF; line-height:1.4; font-size:10px; font-variant-numeric: tabular-nums; }
+  
+  /* Строгое ограничение по высоте для 1 страницы А4 */
+  .page { padding: 12mm 12mm; position:relative; height: 297mm; overflow: hidden; display:flex; flex-direction:column; }
+  
+  .header { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #E5E7EB; padding-bottom:8px; margin-bottom:12px; }
+  .logo { font-size:28px; font-weight:900; letter-spacing:-1.5px; line-height:1; color:#1F2A24; }
   .logo span { color:#119C41; }
-  .doc-info { text-align:right; font-size:12px; color:#5a6e6e; }
-  .doc-info strong { display:block; font-size:16px; color:#1A2C2C; margin-bottom:4px; }
+  .doc-info { text-align:right; font-size:9px; color:#6B7670; }
+  .doc-info strong { display:block; font-size:11px; color:#1F2A24; margin-bottom:2px; font-weight:600; }
   
-  h1 { font-size:26px; margin-bottom:6px; }
-  .subtitle { color:#119C41; font-size:15px; font-weight:600; margin-bottom:30px; text-transform:uppercase; letter-spacing:1px; }
+  .hero { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px; flex-wrap: wrap; gap: 10px; }
+  .hero-title { max-width: 60%; }
+  .main-title { font-size:18px; font-weight:700; margin-bottom:2px; color:#1F2A24; line-height:1.2; letter-spacing:-0.5px; }
+  .subtitle { color:#6B7670; font-size:9px; font-weight:500; text-transform:uppercase; letter-spacing:1px; }
   
-  /* Инфографика маршрута */
-  .route-box { background:#f8fafc; border-radius:16px; padding:20px; border:1px solid #dce4e8; margin-bottom:30px; display:flex; align-items:center; justify-content:center; gap:15px; font-size:15px; font-weight:600; color:#1A2C2C; text-align:center; flex-wrap:wrap; }
-  .route-box i { color:#119C41; font-size:20px; }
+  .total-price-box { background:#FFFFFF; border:1.5px solid #119C41; border-radius:12px; padding:10px 20px; text-align:right; min-width: 200px; box-shadow: 0 4px 15px -5px rgba(17,156,65,0.15); }
+  .total-price-box .label { font-size:9px; font-weight:600; color:#6B7670; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px; }
+  .total-price-box .price { font-size:26px; font-weight:800; color:#119C41; letter-spacing:-1px; line-height:1; }
   
-  /* Параметры груза */
-  .cargo-grid { display:flex; gap:15px; margin-bottom:30px; flex-wrap:wrap; }
-  .cargo-card { flex:1; min-width:120px; background:white; border-radius:14px; padding:15px; border:1px solid #e2e8e6; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.02); }
-  .cargo-card .label { font-size:11px; text-transform:uppercase; color:#8a9b9b; font-weight:700; margin-bottom:5px; }
-  .cargo-card .val { font-size:20px; font-weight:800; color:#1A2C2C; }
-  .cargo-card .val small { font-size:12px; color:#5a6e6e; font-weight:500; }
+  .route-container { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; padding:0 10px; }
+  .route-step { text-align:center; flex-shrink:0; width:70px; position:relative; }
+  .step-node { font-size:8px; font-weight:700; color:#9CA3AF; margin-bottom:4px; letter-spacing:1px; }
+  .step-icon { font-size:16px; color:#1F2A24; margin-bottom:4px; } 
+  .route-step.highlight .step-icon { color:#119C41; } 
+  .route-step.highlight .step-node { color:#119C41; }
+  .step-title { font-size:10px; font-weight:600; color:#1F2A24; line-height:1.2; margin-bottom:2px; }
+  .step-desc { font-size:8px; color:#6B7670; font-weight:400; text-transform:uppercase; letter-spacing:0.5px; }
+  .route-line { flex-grow:1; height:1px; background:#E5E7EB; margin-top:26px; margin-left:5px; margin-right:5px; }
   
-  /* Блок стоимости */
-  .price-title { font-size:16px; font-weight:700; margin-bottom:15px; color:#1A2C2C; border-left:4px solid #119C41; padding-left:12px; }
-  .price-block { border:1px solid #e2e8e6; border-radius:16px; overflow:hidden; margin-bottom:20px; }
-  .price-row { display:flex; justify-content:space-between; padding:15px 20px; border-bottom:1px solid #f0f4f8; font-size:14px; }
-  .price-row:last-child { border-bottom:none; }
-  .price-row:nth-child(even) { background:#fafcfe; }
-  .price-row .name { color:#3d5353; max-width:70%; }
-  .price-row .val { font-weight:700; color:#1A2C2C; }
-  .price-row .val small { display:block; font-size:10px; color:#8a9b9b; font-weight:400; text-align:right; margin-top:2px; }
+  .stats-bar { display:flex; justify-content:space-between; background:#F9FAFB; border-radius:8px; padding:8px 15px; margin-bottom:12px; border:1px solid #F3F4F6; }
+  .stat-item { text-align:center; flex:1; border-right:1px solid #E5E7EB; }
+  .stat-item:last-child { border-right:none; }
+  .stat-item.highlight { background:#FFFFFF; border-radius:6px; border:1px solid #E5E7EB; padding:2px 6px; box-shadow:0 1px 3px rgba(0,0,0,0.02); }
+  .stat-val { font-size:14px; font-weight:700; color:#1F2A24; line-height:1.1; }
+  .stat-item.highlight .stat-val { color:#119C41; }
+  .stat-label { font-size:8px; text-transform:uppercase; color:#6B7670; font-weight:600; margin-top:2px; letter-spacing:0.5px; }
   
-  /* Итого */
-  .total-box { background:#E8F5ED; border-radius:16px; padding:25px; display:flex; justify-content:space-between; align-items:center; border:2px solid #119C41; margin-bottom:30px; }
-  .total-box .label { font-size:16px; font-weight:600; color:#0E7A35; }
-  .total-box .price { font-size:32px; font-weight:900; color:#0E7A35; }
+  .details-bar { display:flex; justify-content:space-between; background:#FAFCFE; border-radius:6px; padding:5px 10px; margin-bottom:12px; border:1px dashed #E5E7EB; font-size:9px; color:#6B7670; }
+  .details-bar span { font-weight:600; color:#1F2A24; }
   
-  /* Условия */
-  .terms { font-size:12px; color:#5a6e6e; background:#f8fafc; padding:15px; border-radius:12px; margin-bottom:30px; }
-  .terms ul { margin-left:15px; margin-top:5px; }
+  .section-title { font-size:11px; font-weight:700; margin-bottom:6px; color:#1F2A24; letter-spacing:-0.3px; text-transform:uppercase; }
   
-  /* Подпись */
-  .footer { border-top:1px solid #e2e8e6; padding-top:20px; display:flex; justify-content:space-between; align-items:flex-end; }
-  .footer .manager { font-size:12px; color:#5a6e6e; }
-  .footer .manager strong { font-size:14px; color:#1A2C2C; display:block; margin-bottom:2px; }
-  .footer .stamp { font-size:12px; color:#119C41; font-weight:700; border:2px solid #119C41; padding:5px 15px; border-radius:8px; transform:rotate(-5deg); opacity:0.7; }
+  /* Карточки */
+  .cards-grid { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+  .cost-card { display:flex; align-items:center; border:1px solid #E5E7EB; border-radius:8px; padding:8px 12px; background:#FFFFFF; }
+  .card-icon { font-size:16px; color:#1F2A24; margin-right:12px; width:20px; text-align:center; }
+  .card-content { flex-grow:1; }
+  .card-title { font-size:10px; font-weight:700; color:#1F2A24; margin-bottom:2px; }
+  .card-desc { font-size:8px; color:#6B7670; line-height:1.3; }
+  .card-price { font-size:12px; font-weight:800; color:#1F2A24; min-width:70px; text-align:right; }
   
-  /* Принт */
+  /* Таможенные платежи */
+  .customs-grid { display:flex; align-items:center; justify-content:space-between; background:#FFF8E7; border:1px solid #F5B342; border-radius:8px; padding:8px 12px; margin-bottom:12px; font-size:9px; }
+  .customs-item { display:flex; gap:4px; color:#5a6e6e; }
+  .customs-item strong { color:#1F2A24; font-weight:700; }
+  .customs-item.total { border-left:1px dashed #F5B342; padding-left:12px; font-size:10px; font-weight:700; color:#1F2A24; }
+  
+  /* Списки */
+  .lists-container { display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:12px; }
+  .list-wrapper { display:flex; flex-direction:column; gap:4px; }
+  .list-title { font-size:9px; font-weight:700; text-transform:uppercase; color:#6B7670; margin-bottom:4px; letter-spacing:0.5px; }
+  .included-item { display:flex; align-items:flex-start; gap:4px; font-size:8px; color:#1F2A24; line-height:1.3; }
+  .included-item i { color:#119C41; margin-top:1px; font-size:8px; }
+  .excluded-item { display:flex; align-items:flex-start; gap:4px; font-size:8px; color:#6B7670; line-height:1.3; }
+  .excluded-item i { color:#9CA3AF; margin-top:1px; font-size:8px; }
+  
+  .terms-block { background:#F9FAFB; border-radius:6px; padding:8px 12px; margin-bottom:12px; font-size:8px; color:#6B7670; line-height:1.4; }
+  .terms-block p { margin-bottom: 2px; }
+  .terms-block strong { color:#1F2A24; }
+  
+  .footer { margin-top:auto; border-top:1px solid #E5E7EB; padding-top:10px; display:flex; justify-content:space-between; align-items:flex-end; }
+  .footer-left { font-size:9px; color:#6B7670; line-height:1.4; }
+  .footer-left strong { font-size:11px; color:#1F2A24; display:block; margin-bottom:2px; }
+  .footer-center { text-align:center; display:flex; flex-direction:column; align-items:center; gap:2px; }
+  .qr-code { width: 40px; height: 40px; opacity: 0.85; border-radius: 4px; }
+  .qr-caption { font-size: 7px; font-weight: 500; color: #6B7670; text-transform: uppercase; letter-spacing: 0.5px; }
+  .footer-right { text-align:right; }
+  .validity { font-size:8px; color:#6B7670; margin-bottom:4px; }
+  .validity strong { color:#1F2A24; }
+  
   @media print {
-    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding:20px; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { height: 297mm; }
   }
   </style></head><body>
 
-  <!-- Шапка -->
-  <div class="header">
-    <div class="logo">СДЭК<span>.</span></div>
-    <div class="doc-info">
-      <strong>Коммерческое предложение № ${Math.floor(Math.random()*10000)}</strong>
-      Дата: ${dateStr}
+  <div class="page">
+    <div class="header">
+      <div class="logo">СДЭК<span>.</span></div>
+      <div class="doc-info">
+        <strong>Коммерческое предложение № ${KpNumber}</strong>
+        Дата: ${dateStr} | Для: <strong>${clientName}</strong>
+      </div>
     </div>
-  </div>
 
-  <h1>Логистическое решение</h1>
-  <div class="subtitle">Международная доставка груза</div>
-
-  <!-- Маршрут -->
-  <div class="route-box">
-    <i class="fas fa-map-marker-alt"></i> ${d.province} (КНР) 
-    <i class="fas fa-arrow-right"></i> Мишань 
-    <i class="fas fa-arrow-right"></i> Владивосток 
-    ${d.rfCity ? `<i class="fas fa-arrow-right"></i> ${d.rfCity}` : ''}
-  </div>
-
-  <!-- Характеристики груза -->
-  <div class="cargo-grid">
-    ${cargoHTML}
-  </div>
-
-  <!-- Стоимость -->
-  <div class="price-title">Структура стоимости</div>
-  <div class="price-block">
-    <div class="price-row">
-      <div class="name">🚚 Транспортировка и забор груза<br><small style="color:#8a9b9b; font-size:11px;">${transportDesc}</small></div>
-      <div class="val">${d.clientTransport.toFixed(2)} ₽</div>
+    <div class="hero">
+      <div class="hero-title">
+        <div class="main-title">Доставка груза: ${d.provinceRu} → ${d.rfCity ? 'г. ' + d.rfCity : 'Владивосток'}</div>
+        <div class="subtitle">Международная логистика · ${cargoName}</div>
+      </div>
+      <div class="total-price-box">
+        <div class="label">Услуги СДЭК (${vatText})</div>
+        <div class="price">${formatMoneyInt(d.clientTotal)} ₽</div>
+      </div>
     </div>
-    <div class="price-row">
-      <div class="name">📦 Терминальная и складская обработка<br><small style="color:#8a9b9b; font-size:11px;">Склады КНР и Владивостока, пограничный терминал, СВХ ${d.lclOn ? '+ СЦ' : ''}</small></div>
-      <div class="val">${d.clientHandling.toFixed(2)} ₽</div>
+
+    <div class="route-container">
+      ${routeHTML}
     </div>
-    ${d.clientCustoms > 0 ? `
-    <div class="price-row">
-      <div class="name">📑 Таможенное оформление<br><small style="color:#8a9b9b; font-size:11px;">Экспортное и импортное ТО</small></div>
-      <div class="val">${d.clientCustoms.toFixed(2)} ₽</div>
-    </div>` : ''}
-  </div>
 
-  <!-- Итого -->
-  <div class="total-box">
-    <span class="label">Итого к оплате:</span>
-    <span class="price">${d.clientTotal.toFixed(2)} ₽</span>
-  </div>
-
-  <!-- Условия -->
-  <div class="terms">
-    <strong>В стоимость включено:</strong>
-    <ul>
-      <li>Забор груза в провинции ${d.province} (КНР)</li>
-      <li>Магистральная перевозка ${d.province} — Мишань — Владивосток</li>
-      <li>Складская и терминальная обработка</li>
-      <li>Услуги СВХ «Таможенный Портал» (Владивосток)</li>
-      ${d.rfCity ? `<li>Доставка до г. ${d.rfCity}</li>` : ''}
-    </ul>
-    <br>
-    <em>* Не включено: хранение на СВХ сверх нормы, услуги брокера (если не включены в ТО).</em>
-  </div>
-
-  <!-- Подпись -->
-  <div class="footer">
-    <div class="manager">
-      С уважением,<br>
-      <strong>${m.name}</strong>
-      ${m.title}<br>
-      Тел.: ${m.phones}<br>
-      E-mail: ${m.email}
+    <div class="stats-bar">
+      ${cargoHTML}
     </div>
-    <div class="stamp">СДЭК</div>
+
+    <div class="details-bar">
+      <div>Тариф: <span>${formatMoney(ratePerKg)} ₽/кг</span></div>
+      <div>Плотность: <span>${formatMoney(density)} кг/м³</span></div>
+      <div>Срок доставки: <span>${deliveryDays} дней</span></div>
+    </div>
+
+    <div class="section-title">Структура стоимости услуг СДЭК</div>
+    <div class="cards-grid">
+      ${cardsHTML}
+    </div>
+
+    ${customsBlockHTML}
+
+    <div class="lists-container">
+      <div class="list-wrapper">
+        <div class="list-title">Включено в услуги:</div>
+        <div class="included-item"><i class="fas fa-check"></i> Забор груза в провинции ${d.provinceRu} (КНР)</div>
+        <div class="included-item"><i class="fas fa-check"></i> Магистральная перевозка (${d.provinceRu} — Мишань — Владивосток)</div>
+        <div class="included-item"><i class="fas fa-check"></i> Складская и терминальная обработка</div>
+        <div class="included-item"><i class="fas fa-check"></i> Услуги СВХ (Склад временного хранения)</div>
+        ${d.rfCity ? `<div class="included-item"><i class="fas fa-check"></i> Доставка до г. ${d.rfCity}</div>` : ''}
+        ${toIncluded}
+      </div>
+      
+      <div class="list-wrapper">
+        <div class="list-title">Не входит в стоимость:</div>
+        <div class="excluded-item"><i class="fas fa-times"></i> Страхование груза</div>
+        <div class="excluded-item"><i class="fas fa-times"></i> Погрузо-разгрузочные работы</div>
+        <div class="excluded-item"><i class="fas fa-times"></i> Сверхнормативное хранение на СВХ</div>
+        <div class="excluded-item"><i class="fas fa-times"></i> Возврат порожних паллет / упаковка</div>
+      </div>
+    </div>
+
+    <div class="terms-block">
+      <p><strong>Условия оплаты:</strong> предоплата ${prepayPercent}%, остаток по факту прибытия.</p>
+      <p><strong>Курс:</strong> тарифы действительны при курсе CNY = ${d.cnyRate} ₽. При изменении курса стоимость может быть скорректирована.</p>
+      <p><em>Настоящее предложение не является публичной офертой.</em></p>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">
+        С уважением,<br>
+        <strong>${m.name}</strong>
+        ${m.title}<br>
+        Тел.: ${m.phones} | E-mail: ${m.email}
+      </div>
+      <div class="footer-center">
+        <div class="qr-wrapper">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.cdek.ru/ru/tracking&color=1F2A24&bgcolor=FFFFFF&margin=1" alt="QR" class="qr-code">
+          <div class="qr-caption">Отследить</div>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="validity">Действительно до:<br><strong>${validDateStr}</strong></div>
+      </div>
+    </div>
   </div>
 
   </body></html>`;
@@ -575,11 +763,24 @@ function exportPDF() {
   document.body.appendChild(iframe);
   const doc = iframe.contentWindow.document;
   doc.open(); doc.write(html); doc.close();
+  
   iframe.onload = function() {
     setTimeout(function() {
-      try { iframe.contentWindow.focus(); iframe.contentWindow.print(); } catch(e) { alert('Ошибка: ' + e.message); }
+      doc.title = `КП_${d.rfCity || 'Владивосток'}_${dateStr}`;
+      try { 
+        iframe.contentWindow.focus(); 
+        if (iframe.contentWindow.document.fonts) {
+          iframe.contentWindow.document.fonts.ready.then(() => {
+            iframe.contentWindow.print();
+          });
+        } else {
+          iframe.contentWindow.print();
+        }
+      } catch(e) { 
+        alert('Ошибка: ' + e.message); 
+      }
       setTimeout(function() { if (iframe.parentNode) iframe.parentNode.removeChild(iframe); }, 60000);
-    }, 500);
+    }, 800);
   };
 }
 
@@ -589,7 +790,6 @@ document.querySelectorAll('input, select').forEach(el => {
   el.addEventListener('change', calculate);
 });
 
-// Синхронизация слайдера и поля ввода маржи
 const marginRange = document.getElementById('marginRange');
 const marginPercent = document.getElementById('marginPercent');
 marginRange.addEventListener('input', function() {
@@ -602,8 +802,6 @@ marginPercent.addEventListener('input', function() {
 });
 
 document.getElementById('exportBtn').addEventListener('click', exportPDF);
-
-// Первый расчет
 calculate();
 </script>
 </body>
